@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Hello = require('./controllers/hello_world');
+var ViewerController = require('./controllers/viewerController');
 
-router.get('', Hello.hello);
+// Viewer routes,
+router.get('', ViewerController.htmlFile);
+router.get('/viewer.js', ViewerController.jsFile);
 
 module.exports = router;
