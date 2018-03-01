@@ -19,7 +19,7 @@ app.use('/', routes);
 var port = process.env.PORT || 3000;
 app.listen(port);
 
-console.log('Server is listening on port %s', port);
+console.log('try this:\ncurl http://localhost:' + port);
 module.exports = app;
 
 // Swagger setup,
