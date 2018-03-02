@@ -1,0 +1,26 @@
+<!doctype html>
+<HTML ng-app="plotGraph">
+
+<HEAD>
+    <TITLE>Graph Viewer</TITLE>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="viewer.js"></script>
+</HEAD>
+
+<body ng-controller="graphViewerController">
+    <div>
+        <div>
+            <button type="submit" ng-click="createHistogram()">Histogram</button>
+            <button type="submit" ng-click="createBarChart()">Bar Chart</button>
+            <button type="submit" ng-click="createLineChart()">Line Chart</button>
+            <button type="submit" ng-click="createPieChart()">Pie Chart</button>
+            <button type="submit" ng-click="createScatterChart()">Scatter Chart</button>
+        </div>
+        <div>
+            <div id="plot"></div>
+        </div>
+    </div>
+</body>
+
+</HTML>

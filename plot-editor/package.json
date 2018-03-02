@@ -7,11 +7,21 @@
   "author": "",
   "license": "",
   "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rostlab/JS18_ProjectB_Group4.git"
+  },
+  "homepage": "https://github.com/Rostlab/JS18_ProjectB_Group4#readme",
+  "bugs": {
+    "url": "https://github.com/Rostlab/JS18_ProjectB_Group4/issues"
+  },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.12.3",
     "swagger-express-mw": "^0.1.0"
   },
   "devDependencies": {
+    "eslint": "^4.18.1",
     "should": "^7.1.0",
     "supertest": "^1.0.0"
   },
