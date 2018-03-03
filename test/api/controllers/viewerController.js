@@ -1,32 +1,31 @@
-var should = require('should');
-var request = require('supertest');
-var server = require('../../../app');
+const should = require('should');
+const request = require('supertest');
+const server = require('../../../app');
 
-describe('controllers', function () {
-  describe('viewerController', function () {
-
-    describe('GET htmlFile', function () {
-      it('should return a test page', function (done) {
+describe('controllers', () => {
+  describe('viewerController', () => {
+    describe('GET htmlFile', () => {
+      it('should return a test page', (done) => {
         request(server)
           .get('')
           .set('Accept', 'application/json')
           .expect('Content-Type', 'text/html; charset=UTF-8')
           .expect(200)
-          .end(function (err, res) {
+          .end((err) => {
             should.not.exist(err);
             done();
           });
       });
     });
 
-    describe('GET jsFile', function () {
-      it('should return a script', function (done) {
+    describe('GET jsFile', () => {
+      it('should return a script', (done) => {
         request(server)
           .get('/viewer.js')
           .set('Accept', 'application/json')
           .expect('Content-Type', 'application/javascript; charset=UTF-8')
           .expect(200)
-          .end(function (err, res) {
+          .end((err) => {
             should.not.exist(err);
             done();
           });

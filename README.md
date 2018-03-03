@@ -31,3 +31,11 @@ Some tests are already implemented using the test framework mocha: Simply run
 ```
 npm test
 ```
+
+## eslint
+
+To run eslint on js files: 
+
+```
+npm run lint
+````
