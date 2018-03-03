@@ -6,11 +6,6 @@ Both for the back end and front end application check
 
 ## Setup (before first run)
 
-go to your project root folder via command line
-```
-cd path/to/workspace/sebamaster-movie-backend
-```
-
 **install node dependencies**
 
 ```
