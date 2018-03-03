@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Rostlab/JS18_ProjectB_Group4.svg?branch=develop)](https://travis-ci.org/Rostlab/JS18_ProjectB_Group4)
+
 ## Prerequisites
 
 Both for the back end and front end application check
@@ -22,7 +24,7 @@ npm start
 
 ## testing
 
-**Important** Make sure that mocha is installed globally as it is specified in [documentation](https://mochajs.org/#installation). 
+**Important** Make sure that mocha is installed globally as it is specified in [documentation](https://mochajs.org/#installation).
 
 Some tests are already implemented using the test framework mocha: Simply run
 
