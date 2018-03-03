@@ -1,7 +1,7 @@
 var environment = require('./environment');
 
 exports.getChartType = function (data) {
-    if (isHotogram(data))
+    if (isHistogram(data))
         return environment.histogramString;
     if (isBarChart(data))
         return environment.barChartString;
@@ -14,7 +14,7 @@ exports.getChartType = function (data) {
     return null;
 }
 
-function isHotogram(data) {
+function isHistogram(data) {
     if (data.type == environment.histogramString)
         return true;
     return false;
