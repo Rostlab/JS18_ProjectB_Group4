@@ -1,7 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var ViewerController = require('./../viewer/viewerController');
-var PlotController = require('./controllers/plotController');
+const express = require('express');
+
+const router = express.Router();
+const ViewerController = require('./../viewer/viewerController');
+const PlotController = require('./controllers/plotController');
 
 // Viewer routes,
 router.get('', ViewerController.htmlFile);
