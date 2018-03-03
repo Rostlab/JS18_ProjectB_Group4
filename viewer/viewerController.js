@@ -1,10 +1,4 @@
-'use strict';
-var path = require('path');
-
-module.exports = {
-  htmlFile: htmlFile,
-  jsFile: jsFile
-};
+const path = require('path');
 
 function htmlFile(req, res) {
   return res.sendFile(path.resolve('viewer/viewer.html'));
@@ -13,3 +7,8 @@ function htmlFile(req, res) {
 function jsFile(req, res) {
   return res.sendFile(path.resolve('viewer/viewer.js'));
 }
+
+module.exports = {
+  htmlFile,
+  jsFile,
+};
