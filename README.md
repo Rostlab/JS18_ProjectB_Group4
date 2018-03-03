@@ -1,1 +1,1 @@
-# JS18_ProjectB_Group4
+# Skeleton project for Swagger
