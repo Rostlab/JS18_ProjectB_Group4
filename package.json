@@ -36,6 +36,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "test": "mocha test/**/**.js --exit"
+    "test": "mocha test/**/**.js --exit",
+    "lint": "node_modules/.bin/eslint **/**/*.js"
   }
 }
