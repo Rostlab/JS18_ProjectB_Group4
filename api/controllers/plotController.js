@@ -42,11 +42,20 @@ function parseScatterChatQuery(query, data) {
 }
 
 function parseQuery(query, chartType, data) {
-  if (chartType === environment.histogramString) { return parseHistogramQuery(query, data); }
-  if (chartType === environment.barChartString) { return parseBarChartQuery(query, data); }
-  if (chartType === environment.scatterChartString) { return parseLineChartQuery(query, data); }
-  if (chartType === environment.pieChartString) { return parsePieQuery(query, data); }
-  if (chartType === environment.scatterChartString) { return parseScatterChatQuery(query, data); }
+  if (chartType === environment.histogramString) {
+    return parseHistogramQuery(query, data);
+  }
+  if (chartType === environment.barChartString) {
+    return parseBarChartQuery(query, data);
+  }
+  if (chartType === environment.scatterChartString) {
+    return parseLineChartQuery(query, data);
+  }
+  if (chartType === environment.pieChartString) {
+    return parsePieQuery(query, data);
+  }
+  if (chartType === environment.scatterChartString) {
+    return parseScatterChatQuery(query, data);
+  }
   return data;
 }
-
