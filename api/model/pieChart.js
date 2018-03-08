@@ -1,54 +1,31 @@
-const ChartBase = require('./chartBase');
-
-function getTotalEntries(array) {
-  let total = 0;
-  for (let i = 0; i < array.length; i += 1) {
-    total += array[i];
-  }
-  return total;
+function showAbsoluteValues() {
+  const update = {
+    textinfo: 'value',
+  };
+  return update;
 }
 
-class PieChart extends ChartBase {
-  constructor(data, layout) {
-    super(layout);
-    this.data = data;
-    this.percentageEnabled = true;
-  }
+function showPercentageValues() {
+  const update = {
+    textinfo: 'percent',
+  };
+  return update;
+}
 
-  showPercentage() {
-    this.percentageEnabled = true;
-  }
-
-  showAbsoulte() {
-    this.percentageEnabled = false;
-  }
-
-  getData() {
-    const result = this.data;
-    if (this.percentageEnabled) {
-      for (let i = 0; i < this.data.length; i += 1) {
-        const total = getTotalEntries(this.data[i].values);
-        for (let j = 0; j < result[i].values.length; j += 1) {
-          result[i].values[j] = (result[i].values[j] * 100) / total;
-        }
-      }
-    }
-    return result;
-  }
-
-  getLayout() {
-    return this.layout;
-  }
-
-  updateColor(labelName, color) {
-    for (let i = 0; i < this.data.length; i += 1) {
-      for (let j = 0; j < this.data[i].labels.length; j += 1) {
-        if (this.data[i].labels[j] === labelName) {
-          this.data[i].marker.colors[j] = color;
+function updateColors(data, labels, colors) {
+  const result = new Array(data.length);
+  for (let i = 0; i < data.length; i++) {
+    result[i] = {};
+    result[i].marker = data[i].marker;
+    for (let j = 0; j < data[i].labels.length; j++) {
+      for (let k = 0; k < labels.length; k++) {
+        if (data[i].labels[j] === labels[k]) {
+          result[i].marker.colors[j] = colors[k];
         }
       }
     }
   }
+  return result;
 }
 
-module.exports = PieChart;
+module.exports = { showAbsoluteValues, showPercentageValues, updateColors };

@@ -1,5 +1,6 @@
 const ModelValidator = require('./../helpers/modelValidator');
 const environment = require('./../helpers/environment');
+const PieChart = require('./../model/pieChart');
 
 module.exports = {
   updatePlot(req, res) {
@@ -25,6 +26,14 @@ function parseLineChartQuery(query, data) {
 }
 
 function parsePieQuery(query, data) {
+  // These are just placeholders, will change them when we will have nlp,
+  if (query === 'showPercentage') {
+    return PieChart.showPercentageValues();
+  } else if (query === 'showAbsoluteValues') {
+    return PieChart.showAbsoluteValues();
+  } else if (query === 'udpdateColors') {
+    return PieChart.updateColors(data, data.labels, data.marker.colors);
+  }
   return data;
 }
 
