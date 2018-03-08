@@ -1,38 +1,42 @@
 const environment = require('./environment');
 
 function isHistogram(data) {
-  if (data.type === environment.histogramString) { return true; }
-  return false;
+  return data.type === environment.histogramString;
 }
 
 function isBarChart(data) {
-  if (data.type === environment.barChartString) { return true; }
-  return false;
+  return data.type === environment.barChartString;
 }
 
 function isLineChart(data) {
-  if (data.type === environment.scatterChartString) { return true; }
-  return false;
+  return data.type === environment.scatterChartString;
 }
 
 function isPieChart(data) {
-  if (data.type === environment.pieChartString) { return true; }
-  return false;
+  return data.type === environment.pieChartString;
 }
 
 function isScatterChart(data) {
-  if (data.type === environment.scatterChartString) { return true; }
-  return false;
+  return data.type === environment.scatterChartString;
 }
 
 module.exports = {
   getChartType(data) {
-    if (isHistogram(data)) { return environment.histogramString; }
-    if (isBarChart(data)) { return environment.barChartString; }
-    if (isLineChart(data)) { return environment.scatterChartString; }
-    if (isPieChart(data)) { return environment.pieChartString; }
-    if (isScatterChart(data)) { return environment.scatterChartString; }
+    if (isHistogram(data)) {
+      return environment.histogramString;
+    }
+    if (isBarChart(data)) {
+      return environment.barChartString;
+    }
+    if (isLineChart(data)) {
+      return environment.scatterChartString;
+    }
+    if (isPieChart(data)) {
+      return environment.pieChartString;
+    }
+    if (isScatterChart(data)) {
+      return environment.scatterChartString;
+    }
     return null;
   },
 };
-

@@ -46,11 +46,13 @@ function graphViewerController($scope, $http) {
   };
 
   $scope.createPieChart = function () {
-    const data = [{
-      values: [19, 26, 55],
-      labels: ['Residential', 'Non-Residential', 'Utility'],
-      type: 'pie',
-    }];
+    const data = [
+      {
+        values: [19, 26, 55],
+        labels: ['Residential', 'Non-Residential', 'Utility'],
+        type: 'pie',
+      },
+    ];
 
     const layout = {
       height: 400,
