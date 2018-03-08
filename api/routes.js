@@ -1,12 +1,11 @@
 const express = require('express');
 
 const router = express.Router();
-const ViewerController = require('./../viewer/viewerController');
+const ViewerController = require('./controllers/viewerController');
 const PlotController = require('./controllers/plotController');
 
 // Viewer routes,
-router.get('', ViewerController.htmlFile);
-router.get('/viewer.js', ViewerController.jsFile);
+router.use(express.static("public"));
 router.get('/getUpdate', ViewerController.getUpdate);
 
 // API for Project A,

@@ -1,13 +1,4 @@
-const path = require('path');
 const PieChart = require('./../api/model/pieChart');
-
-function htmlFile(req, res) {
-  return res.sendFile(path.resolve('viewer/viewer.html'));
-}
-
-function jsFile(req, res) {
-  return res.sendFile(path.resolve('viewer/viewer.js'));
-}
 
 function getUpdate(req, res) {
   if (req.query.chartType == 'pie') {
@@ -29,7 +20,5 @@ function getUpdate(req, res) {
 }
 
 module.exports = {
-  htmlFile,
-  jsFile,
   getUpdate,
 };
