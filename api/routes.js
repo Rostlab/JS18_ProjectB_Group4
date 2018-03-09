@@ -1,14 +1,16 @@
 const express = require('express');
 
 const router = express.Router();
-const ViewerController = require('./controllers/viewerController');
-const PlotController = require('./controllers/plotController');
+const FunctionController = require('./controllers/functionController');
+const NLPController = require('./controllers/nlpController');
 
-// Viewer routes,
+// Frontend
 router.use(express.static("public"));
-router.get('/getUpdate', ViewerController.getUpdate);
 
-// API for Project A,
-router.put('/:query', PlotController.updatePlot);
+// Call function directly
+router.post('/api/function/:chartType/:functionName', FunctionController.postRequest);
+
+// NLP API for Project A
+router.post('/api/nlp', NLPController.postRequest);
 
 module.exports = router;

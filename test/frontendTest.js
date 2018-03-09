@@ -1,8 +1,8 @@
 const should = require('should');
 const request = require('supertest');
-const server = require('../../../app');
+const server = require('../app');
 
-describe('controllers.viewerController', () => {
+describe('frontend', () => {
   it('should return a test page', (done) => {
     request(server)
       .get('')
