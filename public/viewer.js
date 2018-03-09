@@ -6,6 +6,19 @@ function graphViewerController($scope, $http) {
     layout: undefined,
   };
 
+  $scope.callBackendFunction = function(chartType, functionName, parameters={}) {
+    $http
+      .post('/api/function/' + chartType + '/' + functionName, parameters)
+      .success((res) => {
+        console.log(res);
+        res.forEach(task => {
+          if(task.action == "updateStyle") {
+            Plotly.restyle('plot', task.value, task.trace);
+          }
+        });
+      });
+  }
+
   $scope.createHistogram = function () {
     const x = [];
     for (let i = 0; i < 500; i++) {
@@ -19,6 +32,7 @@ function graphViewerController($scope, $http) {
     const data = [trace];
     $scope.chart.data = data;
     Plotly.newPlot('plot', data);
+    $scope.currentChartType = "histogram";
   };
 
   $scope.createBarChart = function () {
@@ -31,6 +45,7 @@ function graphViewerController($scope, $http) {
     ];
     $scope.chart.data = data;
     Plotly.newPlot('plot', data);
+    $scope.currentChartType = "bar";
   };
 
   $scope.createLineChart = function () {
@@ -49,6 +64,7 @@ function graphViewerController($scope, $http) {
     const data = [trace1, trace2];
     $scope.chart.data = data;
     Plotly.newPlot('plot', data);
+    $scope.currentChartType = "line";
   };
 
   $scope.createPieChart = function () {
@@ -69,48 +85,18 @@ function graphViewerController($scope, $http) {
     };
     $scope.chart.data = data;
     Plotly.newPlot('plot', data, layout);
-  };
-
-  $scope.showAbsoluteNumbers = function () {
-    $http
-      .get('/getUpdate', {
-        params: {
-          chartType: 'pie',
-          operation: 'absoluteNumber',
-        },
-      })
-      .success((res) => {
-        console.log(res);
-        Plotly.restyle('plot', res);
-      });
-  };
-
-  $scope.showPercentage = function () {
-    $http
-      .get('/getUpdate', {
-        params: {
-          chartType: 'pie',
-          operation: 'percentage',
-        },
-      })
-      .success((res) => {
-        console.log(res);
-        Plotly.restyle('plot', res);
-      });
+    $scope.currentChartType = "pie";
   };
 
   $scope.changeColors = function () {
-    $http
-      .get('/getUpdate', {
-        params: {
-          chartType: 'pie',
-          operation: 'changeColors',
-          chartData: $scope.chart.data,
-        },
-      })
-      .success((res) => {
-        Plotly.restyle('plot', res[0], 0);
-      });
+    const data = $scope.chart.data;
+    const labels = data[0].labels;
+    const colors = ['orange', 'teal', 'lime'];
+    $scope.callBackendFunction('pie', 'updateColors', {
+      labels,
+      colors,
+      data,
+    });
   };
 
   $scope.createScatterChart = function () {
@@ -138,5 +124,6 @@ function graphViewerController($scope, $http) {
     const data = [trace1, trace2, trace3];
     $scope.chart.data = data;
     Plotly.newPlot('plot', data);
+    $scope.currentChartType = "scatter";
   };
 }

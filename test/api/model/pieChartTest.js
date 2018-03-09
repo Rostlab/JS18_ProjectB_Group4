@@ -1,24 +1,34 @@
 const { expect } = require('chai');
 const PieChart = require('./../../../api/model/pieChart');
 
-describe('model.pieChart', () => {
-  it('should return percentage in chart', () => {
-    const expectedTextinfo = 'percent';
-
+describe('api.model.pieChart', () => {
+  it('should return an updateStyle action where textinfo is percent on showPercentageValues()', () => {
     const target = PieChart.showPercentageValues();
 
-    expect(target.textinfo).to.deep.equal(expectedTextinfo);
+    expect(target).to.deep.equal([
+      {
+        action: "updateStyle",
+        value: {
+          textinfo: 'percent',
+        }
+      }
+    ]);
   });
 
-  it('should return absolute values in chart', () => {
-    const expectedTextinfo = 'value';
-
+  it('should return an updateStyle action where textinfo is value on showAbsoluteValues()', () => {
     const target = PieChart.showAbsoluteValues();
 
-    expect(target.textinfo).to.deep.equal(expectedTextinfo);
+    expect(target).to.deep.equal([
+      {
+        action: "updateStyle",
+        value: {
+          textinfo: 'value',
+        }
+      }
+    ]);
   });
 
-  it('should update color of a label', () => {
+  it('should return updateStyle actions with corresponding marker color on updateupdateColors(data, labels, colors)', () => {
     const data = [
       {
         values: [19, 26, 55],
@@ -29,10 +39,19 @@ describe('model.pieChart', () => {
         },
       },
     ];
-    const expectedColors = ['green', 'blue', 'red'];
-    const target = PieChart.updateColors(data, data[0].labels, expectedColors);
+    const newColor = ['green', 'blue', 'red'];
+    const target = PieChart.updateColors(data, data[0].labels, newColor);
 
-    console.log(target);
-    expect(target[0].marker.colors).to.deep.equal(expectedColors);
+    expect(target).to.deep.equal([
+      {
+        action: 'updateStyle',
+        value: {
+          marker: {
+            colors: ['green', 'blue', 'red']
+          }
+        },
+        trace: 0
+      }
+    ]);
   });
 });
