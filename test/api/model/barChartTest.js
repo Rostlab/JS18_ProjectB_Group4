@@ -5,8 +5,8 @@ describe('api.model.barChart', () => {
   it('should return an updateLayout action on changeCategoryOrder(layout, categoryArray, axis)', () => {
     const layout = {
       xaxis: {
-        type: 'category'
-      }
+        type: 'category',
+      },
     };
 
     const newOrder = ['a', 'bb', 'ccc'];
@@ -15,12 +15,11 @@ describe('api.model.barChart', () => {
 
     expect(target).to.deep.equal([
       {
-        action: "updateLayout",
+        action: 'updateLayout',
         value: {
           'xaxis.categoryarray': newOrder,
-        }
-      }
+        },
+      },
     ]);
   });
-
 });

@@ -5,7 +5,7 @@ const FunctionController = require('./controllers/functionController');
 const NLPController = require('./controllers/nlpController');
 
 // Frontend
-router.use(express.static("public"));
+router.use(express.static('public'));
 
 // Call function directly
 router.post('/api/function/:chartType/:functionName', FunctionController.postRequest);

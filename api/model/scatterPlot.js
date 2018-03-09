@@ -83,7 +83,8 @@ function changeLineDash(dash, trace) {
 
 // mode can be string of
 // lines, markers, text
-// or combination of those joined with "+" such as "lines", "markers", "lines+markers", "lines+markers+text"
+// or combination of those joined with "+" such as
+// "lines", "markers", "lines+markers", "lines+markers+text"
 // or "none"
 function changeScatterMode(mode, trace) {
   return actionHelper.updateOneStyle('mode', mode, trace);
@@ -98,5 +99,5 @@ module.exports = {
   changeLineShape,
   changeLineSmoothing,
   changeLineDash,
-  changeScatterMode
+  changeScatterMode,
 };

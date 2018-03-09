@@ -1,19 +1,19 @@
 
 function updateStyles(styles, trace) {
-  if(trace) {
+  if (trace) {
     return [
       {
-        action: "updateStyle",
+        action: 'updateStyle',
         value: styles,
         trace,
-      }
+      },
     ];
   }
   return [
     {
-      action: "updateStyle",
+      action: 'updateStyle',
       value: styles,
-    }
+    },
   ];
 }
 

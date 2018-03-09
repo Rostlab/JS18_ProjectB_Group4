@@ -2,14 +2,14 @@ function showAbsoluteValues() {
   const update = {
     textinfo: 'value',
   };
-  return [{action: "updateStyle", value: update}];
+  return [{ action: 'updateStyle', value: update }];
 }
 
 function showPercentageValues() {
   const update = {
     textinfo: 'percent',
   };
-  return [{action: "updateStyle", value: update}];
+  return [{ action: 'updateStyle', value: update }];
 }
 
 function updateColors(data, labels, colors) {
@@ -25,10 +25,9 @@ function updateColors(data, labels, colors) {
       }
     }
   }
-  
   const result = new Array(updates.length);
   for (let i = 0; i < updates.length; i++) {
-    result[i] = {action: "updateStyle", value: updates[i], trace: i};
+    result[i] = { action: 'updateStyle', value: updates[i], trace: i };
   }
   return result;
 }

@@ -1,3 +1,5 @@
+/* global document angular Plotly */
+
 const plotGraph = angular.module('plotGraph', []);
 
 function graphViewerController($scope, $http) {
@@ -6,30 +8,30 @@ function graphViewerController($scope, $http) {
     layout: undefined,
   };
 
-  $scope.callBackendFunction = function(chartType, functionName, parameters={}) {
-    var plotDiv = document.getElementById('plot');
-    parameters['layout'] = plotDiv.layout;
-    parameters['data'] = plotDiv.data;
+  $scope.callBackendFunction = function (chartType, functionName, parameters = {}) {
+    const plotDiv = document.getElementById('plot');
+    const finalParameters = parameters;
+    finalParameters.layout = plotDiv.layout;
+    finalParameters.data = plotDiv.data;
     $http
-      .post('/api/function/' + chartType + '/' + functionName, parameters)
+      .post(`/api/function/${chartType}/${functionName}`, finalParameters)
       .success((res) => {
         console.log(res);
-        res.forEach(task => {
-          if(task.action == "updateStyle") {
+        res.forEach((task) => {
+          if (task.action === 'updateStyle') {
             Plotly.restyle('plot', task.value, task.trace);
-          } else if(task.action == "updateLayout") {
+          } else if (task.action === 'updateLayout') {
             Plotly.relayout('plot', task.value);
           }
         });
       });
-  }
+  };
 
-  $scope.callBackendFunctionOneParameter = function(chartType, functionName, name, value) {
-    parameters = {}
+  $scope.callBackendFunctionOneParameter = function (chartType, functionName, name, value) {
+    const parameters = {};
     parameters[name] = value;
-    
     $scope.callBackendFunction(chartType, functionName, parameters);
-  }
+  };
 
   $scope.createHistogram = function () {
     const x = [];
@@ -44,7 +46,7 @@ function graphViewerController($scope, $http) {
     const data = [trace];
     $scope.chart.data = data;
     Plotly.newPlot('plot', data);
-    $scope.currentChartType = "histogram";
+    $scope.currentChartType = 'histogram';
   };
 
   $scope.createBarChart = function () {
@@ -57,7 +59,7 @@ function graphViewerController($scope, $http) {
     ];
     $scope.chart.data = data;
     Plotly.newPlot('plot', data);
-    $scope.currentChartType = "bar";
+    $scope.currentChartType = 'bar';
   };
 
   $scope.createLineChart = function () {
@@ -76,7 +78,7 @@ function graphViewerController($scope, $http) {
     const data = [trace1, trace2];
     $scope.chart.data = data;
     Plotly.newPlot('plot', data);
-    $scope.currentChartType = "line";
+    $scope.currentChartType = 'line';
   };
 
   $scope.createPieChart = function () {
@@ -97,12 +99,12 @@ function graphViewerController($scope, $http) {
     };
     $scope.chart.data = data;
     Plotly.newPlot('plot', data, layout);
-    $scope.currentChartType = "pie";
+    $scope.currentChartType = 'pie';
   };
 
   $scope.changeColors = function () {
-    const data = $scope.chart.data;
-    const labels = data[0].labels;
+    const { chart: { data } } = $scope;
+    const [{ labels }] = data;
     const colors = ['orange', 'teal', 'lime'];
     $scope.callBackendFunction('pie', 'updateColors', {
       labels,
@@ -136,6 +138,6 @@ function graphViewerController($scope, $http) {
     const data = [trace1, trace2, trace3];
     $scope.chart.data = data;
     Plotly.newPlot('plot', data);
-    $scope.currentChartType = "scatter";
+    $scope.currentChartType = 'scatter';
   };
 }

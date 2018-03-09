@@ -3,15 +3,15 @@ const ScatterPlot = require('./../../../api/model/scatterPlot');
 
 describe('api.model.scatterPlot', () => {
   it('should return an updateStyle action on changeMarkerSymbol(symbol, trace)', () => {
-    const target = ScatterPlot.changeMarkerSymbol("star");
+    const target = ScatterPlot.changeMarkerSymbol('star');
 
     expect(target).to.deep.equal([
       {
-        action: "updateStyle",
+        action: 'updateStyle',
         value: {
           'marker.symbol': 'star',
-        }
-      }
+        },
+      },
     ]);
   });
 
@@ -20,25 +20,24 @@ describe('api.model.scatterPlot', () => {
 
     expect(target).to.deep.equal([
       {
-        action: "updateStyle",
+        action: 'updateStyle',
         value: {
           'marker.size': 5,
-        }
-      }
+        },
+      },
     ]);
   });
 
   it('should return an updateStyle action on changeLineDash(dash, trace)', () => {
-    const target = ScatterPlot.changeLineDash("dash");
+    const target = ScatterPlot.changeLineDash('dash');
 
     expect(target).to.deep.equal([
       {
-        action: "updateStyle",
+        action: 'updateStyle',
         value: {
           'line.dash': 'dash',
-        }
-      }
+        },
+      },
     ]);
   });
-
 });

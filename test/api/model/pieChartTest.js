@@ -7,11 +7,11 @@ describe('api.model.pieChart', () => {
 
     expect(target).to.deep.equal([
       {
-        action: "updateStyle",
+        action: 'updateStyle',
         value: {
           textinfo: 'percent',
-        }
-      }
+        },
+      },
     ]);
   });
 
@@ -20,11 +20,11 @@ describe('api.model.pieChart', () => {
 
     expect(target).to.deep.equal([
       {
-        action: "updateStyle",
+        action: 'updateStyle',
         value: {
           textinfo: 'value',
-        }
-      }
+        },
+      },
     ]);
   });
 
@@ -47,11 +47,11 @@ describe('api.model.pieChart', () => {
         action: 'updateStyle',
         value: {
           marker: {
-            colors: ['green', 'blue', 'red']
-          }
+            colors: ['green', 'blue', 'red'],
+          },
         },
-        trace: 0
-      }
+        trace: 0,
+      },
     ]);
   });
 });
