@@ -6,6 +6,19 @@ function graphViewerController($scope, $http) {
     layout: undefined,
   };
 
+  $scope.callBackendFunction = function(chartType, functionName, parameters={}) {
+    $http
+      .post('/api/function/' + chartType + '/' + functionName, parameters)
+      .success((res) => {
+        console.log(res);
+        res.forEach(task => {
+          if(task.action == "updateStyle") {
+            Plotly.restyle('plot', task.value, task.trace);
+          }
+        });
+      });
+  }
+
   $scope.createHistogram = function () {
     const x = [];
     for (let i = 0; i < 500; i++) {
@@ -19,6 +32,7 @@ function graphViewerController($scope, $http) {
     const data = [trace];
     $scope.chart.data = data;
     Plotly.newPlot('plot', data);
+    $scope.currentChartType = "histogram";
   };
 
   $scope.createBarChart = function () {
@@ -31,6 +45,7 @@ function graphViewerController($scope, $http) {
     ];
     $scope.chart.data = data;
     Plotly.newPlot('plot', data);
+    $scope.currentChartType = "bar";
   };
 
   $scope.createLineChart = function () {
@@ -49,6 +64,7 @@ function graphViewerController($scope, $http) {
     const data = [trace1, trace2];
     $scope.chart.data = data;
     Plotly.newPlot('plot', data);
+    $scope.currentChartType = "line";
   };
 
   $scope.createPieChart = function () {
@@ -69,20 +85,8 @@ function graphViewerController($scope, $http) {
     };
     $scope.chart.data = data;
     Plotly.newPlot('plot', data, layout);
+    $scope.currentChartType = "pie";
   };
-
-  $scope.callBackendFunction = function(chartType, functionName, parameters={}) {
-    $http
-      .post('/api/function/' + chartType + '/' + functionName, parameters)
-      .success((res) => {
-        console.log(res);
-        res.forEach(task => {
-          if(task.action == "updateStyle") {
-            Plotly.restyle('plot', task.value, task.trace);
-          }
-        });
-      });
-  }
 
   $scope.changeColors = function () {
     const data = $scope.chart.data;
@@ -120,5 +124,6 @@ function graphViewerController($scope, $http) {
     const data = [trace1, trace2, trace3];
     $scope.chart.data = data;
     Plotly.newPlot('plot', data);
+    $scope.currentChartType = "scatter";
   };
 }

@@ -20,7 +20,7 @@
         <div>
             <div id="plot"></div>
         </div>
-        <div>
+        <div ng-if="currentChartType == 'pie'">
             <button type="submit" ng-click="callBackendFunction('pie', 'showAbsoluteValues')">Show Absolute Numbers</button>
             <button type="submit" ng-click="callBackendFunction('pie', 'showPercentageValues')">Show showPercentage</button>
             <button type="submit" ng-click="changeColors()">Change Colors</button>
