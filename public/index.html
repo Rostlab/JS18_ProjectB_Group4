@@ -20,6 +20,22 @@
         <div>
             <div id="plot"></div>
         </div>
+        <div ng-if="currentChartType == 'histogram'">
+            <button type="submit" ng-click="callBackendFunctionOneParameter('histogram', 'set_xbins', 'nbin', 5)">Change bin size to 5</button>
+            <button type="submit" ng-click="callBackendFunctionOneParameter('histogram', 'set_xbins', 'nbin', 10)">Change bin size to 10</button>
+        </div>
+        <div ng-if="currentChartType == 'bar'">
+            <button type="submit" ng-click="callBackendFunctionOneParameter('bar', 'changeCategoryOrder', 'categoryArray', ['giraffes', 'monkeys', 'orangutans'])">Change category order to giraffes, monkeys, orangutan</button>
+            <button type="submit" ng-click="callBackendFunctionOneParameter('bar', 'changeCategoryOrder', 'categoryArray', ['orangutans', 'giraffes', 'monkeys'])">Change category order to orangutan, giraffes, monkeys</button>
+        </div>
+        <div ng-if="currentChartType == 'line' || currentChartType == 'scatter'">
+            <button type="submit" ng-click="callBackendFunctionOneParameter('scatter', 'changeMarkerSymbol', 'symbol', 'star')">Change marker to star</button>
+            <button type="submit" ng-click="callBackendFunctionOneParameter('scatter', 'changeMarkerSymbol', 'symbol', 'circle')">Change marker to circle</button>
+            <button type="submit" ng-click="callBackendFunctionOneParameter('scatter', 'changeMarkerSize', 'size', 5)">Change marker size to 5</button>
+            <button type="submit" ng-click="callBackendFunctionOneParameter('scatter', 'changeMarkerSize', 'size', 10)">Change marker size to 10</button>
+            <button type="submit" ng-click="callBackendFunctionOneParameter('scatter', 'changeLineDash', 'dash', 'solid')">Solid line</button>
+            <button type="submit" ng-click="callBackendFunctionOneParameter('scatter', 'changeLineDash', 'dash', 'dash')">Dash line</button>
+        </div>
         <div ng-if="currentChartType == 'pie'">
             <button type="submit" ng-click="callBackendFunction('pie', 'showAbsoluteValues')">Show Absolute Numbers</button>
             <button type="submit" ng-click="callBackendFunction('pie', 'showPercentageValues')">Show showPercentage</button>

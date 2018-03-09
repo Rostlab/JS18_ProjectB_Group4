@@ -7,6 +7,9 @@ function graphViewerController($scope, $http) {
   };
 
   $scope.callBackendFunction = function(chartType, functionName, parameters={}) {
+    var plotDiv = document.getElementById('plot');
+    parameters['layout'] = plotDiv.layout;
+    parameters['data'] = plotDiv.data;
     $http
       .post('/api/function/' + chartType + '/' + functionName, parameters)
       .success((res) => {
@@ -14,9 +17,18 @@ function graphViewerController($scope, $http) {
         res.forEach(task => {
           if(task.action == "updateStyle") {
             Plotly.restyle('plot', task.value, task.trace);
+          } else if(task.action == "updateLayout") {
+            Plotly.relayout('plot', task.value);
           }
         });
       });
+  }
+
+  $scope.callBackendFunctionOneParameter = function(chartType, functionName, name, value) {
+    parameters = {}
+    parameters[name] = value;
+    
+    $scope.callBackendFunction(chartType, functionName, parameters);
   }
 
   $scope.createHistogram = function () {
