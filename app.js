@@ -18,6 +18,9 @@ app.use('/', routes);
 
 app.listen(port);
 
-console.log(`Server is listening on port ${port}`);
-console.log(` Visit here: http://localhost:${port}`);
+if (require.main === module) {
+  console.log(`Server is listening on port ${port}`);
+  console.log(` Visit here: http://localhost:${port}`);
+}
+
 module.exports = app;
