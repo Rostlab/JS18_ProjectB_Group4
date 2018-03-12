@@ -13,18 +13,16 @@ function graphViewerController($scope, $http) {
     const finalParameters = parameters;
     finalParameters.layout = plotDiv.layout;
     finalParameters.data = plotDiv.data;
-    $http
-      .post(`/api/function/${chartType}/${functionName}`, finalParameters)
-      .success((res) => {
-        console.log(res);
-        res.forEach((task) => {
-          if (task.action === 'updateStyle') {
-            Plotly.restyle('plot', task.value, task.trace);
-          } else if (task.action === 'updateLayout') {
-            Plotly.relayout('plot', task.value);
-          }
-        });
+    $http.post(`/api/function/${chartType}/${functionName}`, finalParameters).success((res) => {
+      console.log(res);
+      res.forEach((task) => {
+        if (task.action === 'updateStyle') {
+          Plotly.restyle('plot', task.value, task.trace);
+        } else if (task.action === 'updateLayout') {
+          Plotly.relayout('plot', task.value);
+        }
       });
+    });
   };
 
   $scope.callBackendFunctionOneParameter = function (chartType, functionName, name, value) {

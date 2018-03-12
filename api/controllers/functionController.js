@@ -14,7 +14,8 @@ const chartTypes = {
 function postRequest(req, res) {
   if (chartTypes[req.params.chartType]) {
     if (typeof chartTypes[req.params.chartType][req.params.functionName] === 'function') {
-      return res.status(200)
+      return res
+        .status(200)
         .json(kwargs(chartTypes[req.params.chartType][req.params.functionName], req.body));
     }
   }
