@@ -6,7 +6,7 @@ const rules = {
   general: [
     {
       match: 'Change plot title to title#string',
-      onmatch(data, layout, matchTree) {
+      actions(data, layout, matchTree) {
         return PieChart.showPercentageValues();
       },
     },
@@ -14,48 +14,45 @@ const rules = {
   pie: [
     {
       match: 'Display as percentage',
-      onmatch(data, layout, matchTree) {
+      actions(data, layout, matchTree) {
         return PieChart.showPercentageValues();
       },
     },
     {
       match: 'Display as absolute',
-      onmatch(data, layout, matchTree) {
+      actions(data, layout, matchTree) {
         return PieChart.showAbsoluteValues();
       },
     },
     {
       // This match string is just for an idea, will be changed later
       match: 'Change color of labels#string_list to colors#color_list',
-      onmatch(data, layout, matchTree) {
+      actions(data, layout, matchTree) {
         return PieChart.updateColors(data, matchTree.labels, matchTree.colors);
       },
     },
   ],
 };
 
+function getActionsByRuleList(ruleList, sentence, data, layout) {
+  for (let i = 0; i < ruleList.length; i++) {
+    const rule = ruleList[i];
+    // Todo using NLP library here
+    if (sentence === rule.match) {
+      return rule.actions(data, layout, {});
+    }
+  }
+  return null;
+}
+
 function getActions(sentence, chartType, data, layout) {
   if (!rules[chartType] || !chartType || !data || !layout) {
     return null;
   }
 
-  for (let i = 0; i < rules.general.length; i++) {
-    const rule = rules.general[i];
-    // Todo using NLP library here
-    if (sentence === rule.match) {
-      return rule.onmatch(data, layout, {});
-    }
-  }
-
-  for (let i = 0; i < rules[chartType].length; i++) {
-    const rule = rules[chartType][i];
-    // Todo using NLP library here
-    if (sentence === rule.match) {
-      return rule.onmatch(data, layout, {});
-    }
-  }
-
-  return null;
+  // Try matching general rules first then try matching chart type specific rules.
+  return getActionsByRuleList(rules.general, sentence, data, layout)
+    || getActionsByRuleList(rules[chartType], sentence, data, layout);
 }
 
 function postRequest(req, res) {
