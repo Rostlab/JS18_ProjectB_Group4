@@ -1,10 +1,10 @@
 
-function updateStyles(styles, trace) {
+function updateStyles(styleUpdates, trace) {
   if (trace) {
     return [
       {
         action: 'updateStyle',
-        value: styles,
+        value: styleUpdates,
         trace,
       },
     ];
@@ -12,7 +12,7 @@ function updateStyles(styles, trace) {
   return [
     {
       action: 'updateStyle',
-      value: styles,
+      value: styleUpdates,
     },
   ];
 }
@@ -23,7 +23,24 @@ function updateOneStyle(name, value, trace) {
   return updateStyles(valueResult, trace);
 }
 
+function updateLayouts(layoutUpdates) {
+  return [
+    {
+      action: 'updateLayout',
+      value: layoutUpdates,
+    },
+  ];
+}
+
+function updateOneLayout(name, value) {
+  const valueResult = {};
+  valueResult[name] = value;
+  return updateLayouts(valueResult);
+}
+
 module.exports = {
   updateStyles,
   updateOneStyle,
+  updateLayouts,
+  updateOneLayout,
 };

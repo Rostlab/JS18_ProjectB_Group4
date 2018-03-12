@@ -1,10 +1,12 @@
 const kwargs = require('kwargs');
+const general = require('../functions/general');
 const pie = require('../functions/pieChart');
 const bar = require('../functions/barChart');
 const histogram = require('../functions/histogram');
 const scatter = require('../functions/scatterPlot');
 
 const functionFiles = {
+  general,
   pie,
   bar,
   histogram,
