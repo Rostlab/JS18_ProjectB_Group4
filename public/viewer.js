@@ -1,29 +1,65 @@
-/* global document angular Plotly */
+/* global document alert angular Plotly */
 
 const plotGraph = angular.module('plotGraph', []);
 
 function graphViewerController($scope, $http) {
+  const viewer = this;
+  const viewerPlotDiv = document.getElementById('plot');
+
   $scope.chart = {
     data: undefined,
     layout: undefined,
   };
 
+  $scope.doActions = function (plotDiv, actions) {
+    actions.forEach((task) => {
+      if (task.action === 'updateStyle') {
+        Plotly.restyle(plotDiv, task.value, task.trace);
+      } else if (task.action === 'updateLayout') {
+        Plotly.relayout(plotDiv, task.value);
+      } else if (task.action === 'updateData') {
+        while (plotDiv.data.length) {
+          Plotly.deleteTraces(plotDiv, 0);
+        }
+        Plotly.addTraces(plotDiv, task.value);
+      }
+    });
+  };
+
+  $scope.submitSentence = function (sentence, plotDiv) {
+    return $http
+      .post('/api/nlp', {
+        sentence,
+        data: plotDiv.data,
+        layout: plotDiv.layout,
+      })
+      .success((res) => {
+        $scope.doActions(plotDiv, res);
+        return res;
+      });
+  };
+
+  $scope.submit = function () {
+    const { sentence } = viewer;
+    viewer.sentence = '';
+
+    $scope.submitSentence(sentence, viewerPlotDiv)
+      .then(() => {
+        console.log('Success');
+      })
+      .catch(() => {
+        alert('Sorry, I do not understand.');
+      });
+  };
+
   $scope.callBackendFunction = function (chartType, functionName, parameters = {}) {
-    const plotDiv = document.getElementById('plot');
     const finalParameters = parameters;
-    finalParameters.layout = plotDiv.layout;
-    finalParameters.data = plotDiv.data;
+    finalParameters.layout = viewerPlotDiv.layout;
+    finalParameters.data = viewerPlotDiv.data;
     $http
       .post(`/api/function/${chartType}/${functionName}`, finalParameters)
       .success((res) => {
-        console.log(res);
-        res.forEach((task) => {
-          if (task.action === 'updateStyle') {
-            Plotly.restyle('plot', task.value, task.trace);
-          } else if (task.action === 'updateLayout') {
-            Plotly.relayout('plot', task.value);
-          }
-        });
+        $scope.doActions(viewerPlotDiv, res);
       });
   };
 
