@@ -1,4 +1,3 @@
-
 function changeCategoryOrder(layout, categoryArray, axis = 'xaxis') {
   const axistype = layout[axis];
   const update = {};

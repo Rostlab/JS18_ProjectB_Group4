@@ -1,4 +1,3 @@
-
 function updateStyles(styles, trace) {
   if (trace) {
     return [
