@@ -1,7 +1,7 @@
 const { expect } = require('chai');
-const Histogram = require('./../../../api/model/histogram');
+const Histogram = require('../../../api/functions/histogram');
 
-describe('api.model.histogram', () => {
+describe('api.fuctions.histogram', () => {
   it('should return an updateStyle action on setXbins(layout, start, end, size, nbin)', () => {
     const layout = {
       xaxis: {

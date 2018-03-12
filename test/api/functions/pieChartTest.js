@@ -1,7 +1,7 @@
 const { expect } = require('chai');
-const PieChart = require('./../../../api/model/pieChart');
+const PieChart = require('../../../api/functions/pieChart');
 
-describe('api.model.pieChart', () => {
+describe('api.fuctions.pieChart', () => {
   it('should return an updateStyle action where textinfo is percent on showPercentageValues()', () => {
     const target = PieChart.showPercentageValues();
 

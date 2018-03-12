@@ -8,7 +8,7 @@ const NLPController = require('./controllers/nlpController');
 router.use(express.static('public'));
 
 // Call function directly
-router.post('/api/function/:chartType/:functionName', FunctionController.postRequest);
+router.post('/api/function/:functionFile/:functionName', FunctionController.postRequest);
 
 // NLP API for Project A
 router.post('/api/nlp', NLPController.postRequest);

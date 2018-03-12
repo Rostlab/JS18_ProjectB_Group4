@@ -1,7 +1,7 @@
 const { expect } = require('chai');
-const BarChart = require('./../../../api/model/barChart');
+const BarChart = require('../../../api/functions/barChart');
 
-describe('api.model.barChart', () => {
+describe('api.fuctions.barChart', () => {
   it('should return an updateLayout action on changeCategoryOrder(layout, categoryArray, axis)', () => {
     const layout = {
       xaxis: {

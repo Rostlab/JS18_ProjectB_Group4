@@ -1,7 +1,7 @@
 const { expect } = require('chai');
-const ScatterPlot = require('./../../../api/model/scatterPlot');
+const ScatterPlot = require('../../../api/functions/scatterPlot');
 
-describe('api.model.scatterPlot', () => {
+describe('api.fuctions.scatterPlot', () => {
   it('should return an updateStyle action on changeMarkerSymbol(symbol, trace)', () => {
     const target = ScatterPlot.changeMarkerSymbol('star');
 
