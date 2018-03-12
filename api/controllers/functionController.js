@@ -1,10 +1,10 @@
 const kwargs = require('kwargs');
-const pie = require('../model/pieChart');
-const bar = require('../model/barChart');
-const histogram = require('../model/histogram');
-const scatter = require('../model/scatterPlot');
+const pie = require('../functions/pieChart');
+const bar = require('../functions/barChart');
+const histogram = require('../functions/histogram');
+const scatter = require('../functions/scatterPlot');
 
-const chartTypes = {
+const functionFiles = {
   pie,
   bar,
   histogram,
@@ -12,10 +12,10 @@ const chartTypes = {
 };
 
 function postRequest(req, res) {
-  if (chartTypes[req.params.chartType]) {
-    if (typeof chartTypes[req.params.chartType][req.params.functionName] === 'function') {
+  if (functionFiles[req.params.functionFile]) {
+    if (typeof functionFiles[req.params.functionFile][req.params.functionName] === 'function') {
       return res.status(200)
-        .json(kwargs(chartTypes[req.params.chartType][req.params.functionName], req.body));
+        .json(kwargs(functionFiles[req.params.functionFile][req.params.functionName], req.body));
     }
   }
   return res.status(404).json({});
