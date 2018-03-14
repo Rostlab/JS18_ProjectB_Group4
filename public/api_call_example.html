@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chart Viewer</title>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
+
+    <body>
+        <div id="plot"></div>
+        <script>
+            /* START */
+            function doActions(plotDiv, actions) {
+                actions.forEach((task) => {
+                if (task.action === 'updateStyle') {
+                    Plotly.restyle(plotDiv, task.value, task.trace);
+                } else if (task.action === 'updateLayout') {
+                    Plotly.relayout(plotDiv, task.value);
+                } else if (task.action === 'updateData') {
+                    while (plotDiv.data.length) {
+                    Plotly.deleteTraces(plotDiv, 0);
+                    }
+                    Plotly.addTraces(plotDiv, task.value);
+                }
+                });
+            };
+
+            function httpPost(url, data) {
+                return new Promise(function(resolve, reject) {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', url, true);
+                    xhr.setRequestHeader('Content-type', 'application/json');
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                const json = JSON.parse(xhr.responseText);
+                                resolve(json);
+                            } else {
+                                reject();
+                            }
+                        }
+                    };
+                    xhr.send(JSON.stringify(data));
+                });
+            }
+
+            function submitSentence(sentence, plotDiv) {
+                return httpPost('https://js2018-group4.azurewebsites.net/api/nlp', {
+                    sentence,
+                    data: plotDiv.data,
+                    layout: plotDiv.layout,
+                })
+                .then((res) => {
+                    doActions(plotDiv, res);
+                    return res;
+                });
+            };
+            /* END */
+
+            /* START plot chart */
+            const data = [
+                {
+                    values: [8, 12, 20],
+                    labels: ['Residential', 'Non-Residential', 'Utility'],
+                    type: 'pie',
+                    marker: {
+                    colors: ['red', 'green', 'blue'],
+                    },
+                },
+            ];
+
+            const layout = {
+                height: 400,
+                width: 500,
+            };
+            const plotDiv = document.getElementById('plot');
+            Plotly.newPlot(plotDiv, data, layout);
+            /* END plot chart */
+
+            // Example call to Project B's API
+            // Parameters: user's sentence and element of Plotly
+            submitSentence('Display as absolute', plotDiv)
+                .then((res) => {
+                    alert("Success");
+                })
+                .catch(() => {
+                    alert("Sorry, I do not understand.");
+                });
+        </script>
+    </body>
+</html>
