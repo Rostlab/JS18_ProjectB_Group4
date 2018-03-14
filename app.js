@@ -6,14 +6,9 @@ const routes = require('./api/routes');
 const port = process.env.PORT || 3000;
 
 const app = express();
+
+app.use(cors());
 app.use(bodyParser.json());
-const corsOptions = {
-  origin: `http://localhost:${port}`,
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  methods: ['GET', 'PUT', 'POST', 'DELETE'],
-};
-app.use(cors(corsOptions));
 app.use('/', routes);
 
 app.listen(port);
