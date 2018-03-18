@@ -1,9 +1,6 @@
 const lint = require('mocha-eslint');
 
-const paths = [
-  '**/**/*.js',
-  '!node_modules/**/**/*.js',
-];
+const paths = ['**/**/*.js', '!node_modules/**/**/*.js'];
 
 const options = {
   // Specify style of output

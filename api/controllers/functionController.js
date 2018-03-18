@@ -16,7 +16,8 @@ const functionFiles = {
 function postRequest(req, res) {
   if (functionFiles[req.params.functionFile]) {
     if (typeof functionFiles[req.params.functionFile][req.params.functionName] === 'function') {
-      return res.status(200)
+      return res
+        .status(200)
         .json(kwargs(functionFiles[req.params.functionFile][req.params.functionName], req.body));
     }
   }
