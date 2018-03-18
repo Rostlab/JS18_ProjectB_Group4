@@ -51,8 +51,10 @@ function getActions(sentence, chartType, data, layout) {
   }
 
   // Try matching general rules first then try matching chart type specific rules.
-  return getActionsByRuleList(rules.general, sentence, data, layout)
-    || getActionsByRuleList(rules[chartType], sentence, data, layout);
+  return (
+    getActionsByRuleList(rules.general, sentence, data, layout) ||
+    getActionsByRuleList(rules[chartType], sentence, data, layout)
+  );
 }
 
 function postRequest(req, res) {

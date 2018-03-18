@@ -43,7 +43,8 @@ function graphViewerController($scope, $http) {
     const { sentence } = viewer;
     viewer.sentence = '';
 
-    $scope.submitSentence(sentence, viewerPlotDiv)
+    $scope
+      .submitSentence(sentence, viewerPlotDiv)
       .then(() => {
         console.log('Success');
       })
@@ -56,11 +57,9 @@ function graphViewerController($scope, $http) {
     const finalParameters = parameters;
     finalParameters.layout = viewerPlotDiv.layout;
     finalParameters.data = viewerPlotDiv.data;
-    $http
-      .post(`/api/function/${chartType}/${functionName}`, finalParameters)
-      .success((res) => {
-        $scope.doActions(viewerPlotDiv, res);
-      });
+    $http.post(`/api/function/${chartType}/${functionName}`, finalParameters).success((res) => {
+      $scope.doActions(viewerPlotDiv, res);
+    });
   };
 
   $scope.callBackendFunctionOneParameter = function (chartType, functionName, name, value) {
@@ -146,6 +145,13 @@ function graphViewerController($scope, $http) {
       labels,
       colors,
       data,
+    });
+  };
+
+  $scope.changeLegendPosition = function () {
+    $scope.callBackendFunction('general', 'changeLegendPosition', {
+      x: 1,
+      y: 0,
     });
   };
 
