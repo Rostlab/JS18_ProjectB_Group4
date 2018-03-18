@@ -27,8 +27,8 @@ function showLegend() {
 
 /**
  * Updates the legend position in the chart.
- * @param {any} x New x position of the legend (0-1)
- * @param {any} y New y position of the legend (0-1)
+ * @param {number} x New x position of the legend (0-1)
+ * @param {number} y New y position of the legend (0-1)
  * @returns {any} Updated layout of the chart.
  */
 function changeLegendPosition(x, y) {

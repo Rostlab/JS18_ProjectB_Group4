@@ -23,8 +23,8 @@ function showPercentageValues() {
 /**
  * Updates colors for the given labels in the pie chart.
  * @param {any} data Data of the pie chart.
- * @param {any} labels Labels of the pie chart.
- * @param {any} colors New colors for the pie chart.
+ * @param {string[]} labels Labels of the pie chart.
+ * @param {string[]} colors New colors for the pie chart.
  * @returns {any} Updated layout for the chart.
  */
 function updateColors(data, labels, colors) {
