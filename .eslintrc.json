@@ -1,17 +1,30 @@
 {
-    "extends": "airbnb-base",
-    "rules": {
-        "no-console": "off",
-        "no-unused-vars": "warn",
-        "no-plusplus": [
-            "error",
-            {
-                "allowForLoopAfterthoughts": true
-            }
-        ]
-    },
-    "env": {
-        "node": true,
-        "mocha": true
-    }
+  "extends": "airbnb-base",
+  "rules": {
+    "no-console": "off",
+    "no-unused-vars": "warn",
+    "no-plusplus": [
+      "error",
+      {
+        "allowForLoopAfterthoughts": true
+      }
+    ],
+    "valid-jsdoc": "error",
+    "require-jsdoc": [
+      "warn",
+      {
+        "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": false,
+          "ClassDeclaration": false,
+          "ArrowFunctionExpression": false
+        }
+      }
+    ],
+    "linebreak-style": "off"
+  },
+  "env": {
+    "node": true,
+    "mocha": true
+  }
 }

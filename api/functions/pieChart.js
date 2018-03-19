@@ -1,3 +1,7 @@
+/**
+ * Shows absolute values in a pie chart.
+ * @returns {any} Updated layout for the chart.
+ */
 function showAbsoluteValues() {
   const update = {
     textinfo: 'value',
@@ -5,6 +9,10 @@ function showAbsoluteValues() {
   return [{ action: 'updateStyle', value: update }];
 }
 
+/**
+ * Shows percentage in a pie chart.
+ * @returns {any} Updated layout for the chart.
+ */
 function showPercentageValues() {
   const update = {
     textinfo: 'percent',
@@ -12,6 +20,13 @@ function showPercentageValues() {
   return [{ action: 'updateStyle', value: update }];
 }
 
+/**
+ * Updates colors for the given labels in the pie chart.
+ * @param {any} data Data of the pie chart.
+ * @param {string[]} labels Labels of the pie chart.
+ * @param {string[]} colors New colors for the pie chart.
+ * @returns {any} Updated layout for the chart.
+ */
 function updateColors(data, labels, colors) {
   const updates = new Array(data.length);
   for (let i = 0; i < data.length; i++) {
