@@ -1,69 +1,55 @@
+const nlp = require('compromise');
 const ChartHelper = require('../helpers/chartHelper');
-const General = require('../functions/general');
-const PieChart = require('../functions/pieChart');
+const nlpRules = require('../nlp/nlpRules');
+const sentenceRules = require('../nlp/sentenceRules');
+const tagRules = require('../nlp/tagRules');
 
-const rules = {
-  general: [
-    {
-      match: /^(Change|Set|Update) (plot |graph |chart )?title to (.*?)$/im,
-      actions(data, layout, matchTree) {
-        return General.changeTitle(matchTree[matchTree.length - 1]);
-      },
-    },
-    {
-      match: /^Hide legend$/im,
-      actions(data, layout, matchTree) {
-        return General.hideLegend();
-      },
-    },
-    {
-      match: /^Show legend$/im,
-      actions(data, layout, matchTree) {
-        return General.showLegend();
-      },
-    },
-  ],
-  pie: [
-    {
-      match: /^Display as percentage$/im,
-      actions(data, layout, matchTree) {
-        return PieChart.showPercentageValues();
-      },
-    },
-    {
-      match: /^Display as absolute$/im,
-      actions(data, layout, matchTree) {
-        return PieChart.showAbsoluteValues();
-      },
-    },
-    {
-      // This match string is just for an idea, will be changed later
-      match: /^Change color of labels#string_list to colors#color_list$/im,
-      actions(data, layout, matchTree) {
-        return PieChart.updateColors(data, matchTree.labels, matchTree.colors);
-      },
-    },
-  ],
-};
+nlp.plugin(nlpRules);
 
 /**
  * Get action for the given sentence.
- * @param {any} ruleList List of rules to check.
- * @param {string} sentence Query sentence.
+ * @param {any} sentenceRuleList List of sentence rules to check.
+ * @param {any} nlpSentence NLP query sentence.
  * @param {any} data Chart.data object.
  * @param {any} layout Chart.layout object.
  * @returns {any} Action if given sentence applies to given rules. Else returns null.
  */
-function getActionsByRuleList(ruleList, sentence, data, layout) {
-  for (let i = 0; i < ruleList.length; i++) {
-    const rule = ruleList[i];
-    if (rule.match.test(sentence)) {
-      return rule.actions(data, layout, rule.match.exec(sentence));
+function getActionsBySentenceRuleList(sentenceRuleList, nlpSentence, data, layout) {
+  for (let i = 0; i < sentenceRuleList.length; i++) {
+    const rule = sentenceRuleList[i];
+    for (let j = 0; j < rule.match.length; j++) {
+      if (nlpSentence.has(rule.match[j])) {
+        return rule.actions(data, layout, j, nlpSentence);
+      }
     }
-    // Todo using NLP library here
-    // if (sentence === rule.match) {
-    //   return rule.actions(data, layout, {});
-    // }
+  }
+  return null;
+}
+
+/**
+ * Get action for the given sentence.
+ * @param {any} tagRuleList List of tag rules to check.
+ * @param {any} nlpSentence NLP query sentence.
+ * @param {any} data Chart.data object.
+ * @param {any} layout Chart.layout object.
+ * @returns {any} Action if given sentence applies to given rules. Else returns null.
+ */
+function getActionsByTagRuleList(tagRuleList, nlpSentence, data, layout) {
+  for (let i = 0; i < tagRuleList.length; i++) {
+    const rule = tagRuleList[i];
+    for (let j = 0; j < rule.match.length; j++) {
+      const matchTags = {};
+      for (let k = 0; k < rule.match[j].length; k++) {
+        const match = nlpSentence.match(`#${rule.match[j][k]}`).out().trim();
+        if (!match) {
+          break;
+        }
+        matchTags[rule.match[j][k]] = match;
+        if (k === rule.match[j].length - 1) {
+          return rule.actions(data, layout, j, matchTags);
+        }
+      }
+    }
   }
   return null;
 }
@@ -77,14 +63,18 @@ function getActionsByRuleList(ruleList, sentence, data, layout) {
  * @returns {any} Action if given sentence applies to given rules. Else returns null.
  */
 function getActions(sentence, chartType, data, layout) {
-  if (!rules[chartType] || !chartType || !data || !layout) {
+  const nlpSentence = nlp(sentence);
+
+  if (!sentenceRules[chartType] || !tagRules[chartType] || !chartType || !data || !layout) {
     return null;
   }
 
   // Try matching general rules first then try matching chart type specific rules.
   return (
-    getActionsByRuleList(rules.general, sentence, data, layout) ||
-    getActionsByRuleList(rules[chartType], sentence, data, layout)
+    getActionsBySentenceRuleList(sentenceRules.general, nlpSentence, data, layout) ||
+    getActionsBySentenceRuleList(sentenceRules[chartType], nlpSentence, data, layout) ||
+    getActionsByTagRuleList(tagRules.general, nlpSentence, data, layout) ||
+    getActionsByTagRuleList(tagRules[chartType], nlpSentence, data, layout)
   );
 }
 

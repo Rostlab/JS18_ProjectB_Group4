@@ -118,4 +118,91 @@ describe('api.controllers.nlpController', () => {
         done();
       });
   });
+
+  it('should return an updateStyle action on POST /api/nlp for sentence "Change line color to red"', (done) => {
+    request(server)
+      .post('/api/nlp')
+      .send({
+        sentence: 'Change line color to red',
+        data: [
+          {
+            type: 'scatter',
+          },
+        ],
+        layout: {},
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .expect(200)
+      .expect([
+        {
+          action: 'updateStyle',
+          value: {
+            'line.color': 'red',
+          },
+        },
+      ])
+      .end((err) => {
+        should.not.exist(err);
+        done();
+      });
+  });
+
+  it('should return an updateLayout action on POST /api/nlp for sentence "Change title to hello world"', (done) => {
+    request(server)
+      .post('/api/nlp')
+      .send({
+        sentence: 'Change title to hello world',
+        data: [
+          {
+            type: 'scatter',
+          },
+        ],
+        layout: {},
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .expect(200)
+      .expect([
+        {
+          action: 'updateLayout',
+          value: {
+            title: 'hello world',
+          },
+        },
+      ])
+      .end((err) => {
+        should.not.exist(err);
+        done();
+      });
+  });
+
+  it('should return an updateLayout action on POST /api/nlp for sentence "Set hello world 2 as plot title"', (done) => {
+    request(server)
+      .post('/api/nlp')
+      .send({
+        sentence: 'Set hello world 2 as plot title',
+        data: [
+          {
+            type: 'scatter',
+          },
+        ],
+        layout: {},
+      })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .expect(200)
+      .expect([
+        {
+          action: 'updateLayout',
+          value: {
+            title: 'hello world 2',
+          },
+        },
+      ])
+      .end((err) => {
+        should.not.exist(err);
+        done();
+      });
+  });
 });
