@@ -13,6 +13,12 @@ const functionFiles = {
   scatter,
 };
 
+/**
+ * Function hook for POST /api/function/:functionFile/:functionName
+ * @param {*} req Express request object
+ * @param {*} res Express response object
+ * @returns {*} Express response object
+ */
 function postRequest(req, res) {
   if (functionFiles[req.params.functionFile]) {
     if (typeof functionFiles[req.params.functionFile][req.params.functionName] === 'function') {

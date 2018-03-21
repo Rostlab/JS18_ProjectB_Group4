@@ -4,19 +4,24 @@ module.exports = {
       isA: 'Noun',
     },
     Quotation: {
-      isA: ['Value', 'ValueString'],
+      isA: ['PValue', 'ValueString'],
     },
     ValueColor: {
-      isA: 'Value',
+      isA: 'PValue',
     },
     ValueSymbol: {
-      isA: 'Value',
+      isA: 'PValue',
+    },
+    Value: {
+      isA: 'PValue',
     },
     ComponentAxis: {
       isA: 'Component',
     },
   },
   words: {
+    hide: ['Action', 'ActionHide'],
+    show: ['Action', 'ActionShow'],
     legend: ['Component', 'ComponentLegend'],
     legends: ['Component', 'ComponentLegend'],
     line: ['Component', 'ComponentLine'],
@@ -36,6 +41,10 @@ module.exports = {
     order: ['Attribute', 'AttributeOrder'],
     symbol: ['Attribute', 'AttributeSymbol'],
     opacity: ['Attribute', 'AttributeOpacity'],
+    percentage: ['PValue', 'ValuePercent'],
+    percent: ['PValue', 'ValuePercent'],
+    absolute: ['PValue', 'ValueValue'],
+    value: ['PValue', 'ValueValue'],
   },
   patterns: {
     '(red|pink|orange|yellow|gold|magenta|violet|purple|blue|green|white|black|gray|cyan)': 'ValueColor',
