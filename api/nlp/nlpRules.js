@@ -4,13 +4,16 @@ module.exports = {
       isA: 'Noun',
     },
     Quotation: {
-      isA: ['Value', 'ValueString'],
+      isA: ['PValue', 'ValueString'],
     },
     ValueColor: {
-      isA: 'Value',
+      isA: 'PValue',
     },
     ValueSymbol: {
-      isA: 'Value',
+      isA: 'PValue',
+    },
+    Value: {
+      isA: 'PValue',
     },
     ComponentAxis: {
       isA: 'Component',
