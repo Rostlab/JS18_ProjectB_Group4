@@ -3,10 +3,44 @@ const PieChart = require('../functions/pieChart');
 const ScatterPlot = require('../functions/scatterPlot');
 
 module.exports = {
-  general: [],
+  general: [
+    {
+      match: [
+        ['ActionHide', 'ComponentLegend'],
+      ],
+      actions(data, layout, matchRule, matchTags) {
+        return General.hideLegend();
+      },
+    },
+    {
+      match: [
+        ['ActionShow', 'ComponentLegend'],
+      ],
+      actions(data, layout, matchRule, matchTags) {
+        return General.showLegend();
+      },
+    },
+  ],
   bar: [],
   histogram: [],
-  pie: [],
+  pie: [
+    {
+      match: [
+        ['ValuePercent'],
+      ],
+      actions(data, layout, matchRule, matchTags) {
+        return PieChart.showPercentageValues();
+      },
+    },
+    {
+      match: [
+        ['ValueValue'],
+      ],
+      actions(data, layout, matchRule, matchTags) {
+        return PieChart.showAbsoluteValues();
+      },
+    },
+  ],
   scatter: [
     {
       match: [

@@ -16,18 +16,6 @@ module.exports = {
         return General.changeTitle(matchNLP.before('as').after('(change|set|update)').out().trim());
       },
     },
-    {
-      match: ['hide legend'],
-      actions(data, layout, matchRule, matchNLP) {
-        return General.hideLegend();
-      },
-    },
-    {
-      match: ['show legend'],
-      actions(data, layout, matchRule, matchNLP) {
-        return General.showLegend();
-      },
-    },
   ],
   bar: [
 
@@ -37,21 +25,17 @@ module.exports = {
   ],
   pie: [
     {
-      match: ['display as percentage'],
-      actions(data, layout, matchRule, matchNLP) {
-        return PieChart.showPercentageValues();
-      },
-    },
-    {
-      match: ['display as absolute'],
-      actions(data, layout, matchRule, matchNLP) {
-        return PieChart.showAbsoluteValues();
-      },
-    },
-    {
       match: ['change color of * to *'],
       actions(data, layout, matchRule, matchNLP) {
-        return PieChart.updateColors(data, matchNLP.before('to').after('of').out().trim(), matchNLP.after('to').out().trim());
+        return PieChart.updateColors(
+          data,
+          matchNLP.before('to').after('of').out().trim()
+            .split(',')
+            .map(Function.prototype.call, String.prototype.trim),
+          matchNLP.after('to').out().trim()
+            .split(',')
+            .map(Function.prototype.call, String.prototype.trim),
+        );
       },
     },
   ],
