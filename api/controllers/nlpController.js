@@ -1,6 +1,11 @@
 const ChartHelper = require('../helpers/chartHelper');
 const NLP = require('../nlp/nlp');
 
+/**
+ * Function hook for POST /api/nlp
+ * @param {*} req Express request object
+ * @param {*} res Express response object
+ */
 function postRequest(req, res) {
   const chartType = ChartHelper.getChartType(req.body.data);
 
