@@ -40,8 +40,8 @@ function getActionsByTagRuleList(tagRuleList, nlpSentence, data, layout) {
     for (let j = 0; j < rule.match.length; j++) {
       const matchTags = {};
       for (let k = 0; k < rule.match[j].length; k++) {
-        const match = nlpSentence.match(`#${rule.match[j][k]}`).out().trim();
-        if (!match) {
+        const match = nlpSentence.match(`#${rule.match[j][k]}`);
+        if (!match.out().trim()) {
           break;
         }
         matchTags[rule.match[j][k]] = match;

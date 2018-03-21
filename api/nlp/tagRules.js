@@ -13,7 +13,7 @@ module.exports = {
         ['ComponentLine', 'AttributeColor', 'ValueColor'],
       ],
       actions(data, layout, matchRule, matchTags) {
-        return ScatterPlot.changeLineColor(matchTags.ValueColor);
+        return ScatterPlot.changeLineColor(matchTags.ValueColor.out().trim());
       },
     },
   ],
