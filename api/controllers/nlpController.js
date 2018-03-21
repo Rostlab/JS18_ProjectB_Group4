@@ -8,12 +8,35 @@ const NLP = require('../nlp/nlp');
  * @returns {*} Express response object
  */
 function postRequest(req, res) {
+  if (!req.body.sentence) {
+    return res.status(400).json({ message: 'No sentence provided' });
+  }
+  if (!req.body.data) {
+    return res.status(400).json({ message: 'No data provided' });
+  }
+  if (!req.body.layout) {
+    return res.status(400).json({ message: 'No layout provided' });
+  }
+  if (typeof req.body.sentence !== 'string') {
+    return res.status(400).json({ message: 'Wrong sentence format' });
+  }
+  if (!Array.isArray(req.body.data)) {
+    return res.status(400).json({ message: 'Wrong data format' });
+  }
+  if (typeof req.body.layout !== 'object' || Array.isArray(req.body.layout)) {
+    return res.status(400).json({ message: 'Wrong layout format' });
+  }
+
   const chartType = ChartHelper.getChartType(req.body.data);
+
+  if (!chartType) {
+    return res.status(400).json({ message: 'Wrong data format: can not detect or invalid chart type' });
+  }
 
   const actions = NLP.getActions(req.body.sentence, chartType, req.body.data, req.body.layout);
 
   if (actions === null) {
-    return res.status(400).json({});
+    return res.status(400).json({ message: 'Unrecognized sentence' });
   }
 
   return res.status(200).json(actions);
