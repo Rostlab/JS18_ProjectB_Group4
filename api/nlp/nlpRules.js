@@ -30,6 +30,7 @@ module.exports = {
     legend: ['Component', 'ComponentLegend'],
     legends: ['Component', 'ComponentLegend'],
     line: ['Component', 'ComponentLine'],
+    stroke: ['Component', 'ComponentLine'],
     marker: ['Component', 'ComponentMarker'],
     dot: ['Component', 'ComponentDot'],
     bin: ['Component', 'ComponentBin'],
