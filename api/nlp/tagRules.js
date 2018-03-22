@@ -8,7 +8,7 @@ module.exports = {
       match: [
         ['ActionHide', 'ComponentLegend'],
       ],
-      actions(data, layout, matchRule, matchTags) {
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
         return General.hideLegend();
       },
     },
@@ -16,8 +16,16 @@ module.exports = {
       match: [
         ['ActionShow', 'ComponentLegend'],
       ],
-      actions(data, layout, matchRule, matchTags) {
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
         return General.showLegend();
+      },
+    },
+    {
+      match: [
+        ['AttributeTitle', 'Quotation'],
+      ],
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
+        return General.changeTitle(nlpSentence.quotations(0).out('text').trim().slice(1, -1));
       },
     },
   ],
@@ -28,7 +36,7 @@ module.exports = {
       match: [
         ['ValuePercent'],
       ],
-      actions(data, layout, matchRule, matchTags) {
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
         return PieChart.showPercentageValues();
       },
     },
@@ -36,43 +44,54 @@ module.exports = {
       match: [
         ['ValueValue'],
       ],
-      actions(data, layout, matchRule, matchTags) {
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
         return PieChart.showAbsoluteValues();
+      },
+    },
+    {
+      match: [
+        ['ValueLabel+', 'ValueColor+'],
+      ],
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
+        return PieChart.updateColors(
+          data,
+          matchTags['ValueLabel+'].data()[0].text.split(',').map(label => label.trim()),
+          matchTags['ValueColor+'].out('array')[0].split(' '),
+        );
       },
     },
   ],
   scatter: [
     {
       match: [
-        ['ComponentMarker', 'AttributeSymbol', 'ValueSymbol'],
-        ['ComponentMarker', 'ValueSymbol'],
-      ],
-      actions(data, layout, matchRule, matchTags) {
-        return ScatterPlot.changeMarkerSymbol(matchTags.ValueSymbol.out().trim());
-      },
-    },
-    {
-      match: [
         ['ComponentMarker', 'AttributeSize', 'Value'],
       ],
-      actions(data, layout, matchRule, matchTags) {
-        return ScatterPlot.changeMarkerSize(matchTags.Value.values().data()[0].number);
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
+        return ScatterPlot.changeMarkerSize(matchTags.Value.values().numbers()[0]);
       },
     },
     {
       match: [
         ['ComponentMarker', 'AttributeOpacity', 'Percent'],
       ],
-      actions(data, layout, matchRule, matchTags) {
-        return ScatterPlot.changeMarkerOpacity(matchTags.Percent.values().data()[0].number / 100);
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
+        return ScatterPlot.changeMarkerOpacity(matchTags.Percent.values().numbers()[0] / 100);
       },
     },
     {
       match: [
         ['ComponentLine', 'AttributeColor', 'ValueColor'],
       ],
-      actions(data, layout, matchRule, matchTags) {
-        return ScatterPlot.changeLineColor(matchTags.ValueColor.out().trim());
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
+        return ScatterPlot.changeLineColor(matchTags.ValueColor.out('normal'));
+      },
+    },
+    {
+      match: [
+        ['ValueSymbol'],
+      ],
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
+        return ScatterPlot.changeMarkerSymbol(matchTags.ValueSymbol.out('normal'));
       },
     },
   ],

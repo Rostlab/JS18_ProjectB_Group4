@@ -4,7 +4,10 @@ module.exports = {
       isA: 'Noun',
     },
     Quotation: {
-      isA: ['PValue', 'ValueString'],
+      isA: 'ValueString',
+    },
+    ValueString: {
+      isA: 'PValue',
     },
     ValueColor: {
       isA: 'PValue',

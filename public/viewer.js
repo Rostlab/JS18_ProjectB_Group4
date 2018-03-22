@@ -120,7 +120,7 @@ function graphViewerController($scope, $http) {
     const data = [
       {
         values: [8, 12, 20],
-        labels: ['Residential', 'Non-Residential', 'Utility'],
+        labels: ['Residential', 'Non_Residential', 'Utility'],
         type: 'pie',
         marker: {
           colors: ['red', 'green', 'blue'],
