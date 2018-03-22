@@ -39,13 +39,18 @@ function getActionsByTagRuleList(tagRuleList, nlpSentence, data, layout) {
     for (let j = 0; j < rule.match.length; j++) {
       const matchTags = {};
       for (let k = 0; k < rule.match[j].length; k++) {
-        const match = nlpSentence.match(`#${rule.match[j][k]}`);
+        let tag = `#${rule.match[j][k]}`;
+        if (tag === '#ValueLabel' || tag === '#ValueLabel+') {
+          const labels = data[0].labels || [];
+          tag = tag.replace('#ValueLabel', `(${labels.join('|').toLowerCase()})`);
+        }
+        const match = nlpSentence.match(tag);
         if (!match.out().trim()) {
           break;
         }
         matchTags[rule.match[j][k]] = match;
         if (k === rule.match[j].length - 1) {
-          return rule.actions(data, layout, j, matchTags);
+          return rule.actions(data, layout, j, matchTags, nlpSentence);
         }
       }
     }

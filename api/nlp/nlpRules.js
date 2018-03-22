@@ -4,7 +4,10 @@ module.exports = {
       isA: 'Noun',
     },
     Quotation: {
-      isA: ['PValue', 'ValueString'],
+      isA: 'ValueString',
+    },
+    ValueString: {
+      isA: 'PValue',
     },
     ValueColor: {
       isA: 'PValue',
@@ -21,10 +24,15 @@ module.exports = {
   },
   words: {
     hide: ['Action', 'ActionHide'],
+    dismiss: ['Action', 'ActionHide'],
+    remove: ['Action', 'ActionHide'],
     show: ['Action', 'ActionShow'],
+    display: ['Action', 'ActionShow'],
+    add: ['Action', 'ActionShow'],
     legend: ['Component', 'ComponentLegend'],
     legends: ['Component', 'ComponentLegend'],
     line: ['Component', 'ComponentLine'],
+    stroke: ['Component', 'ComponentLine'],
     marker: ['Component', 'ComponentMarker'],
     dot: ['Component', 'ComponentDot'],
     bin: ['Component', 'ComponentBin'],
@@ -32,7 +40,7 @@ module.exports = {
     gridline: ['Component', 'ComponentGridLine'],
     plot: ['Component', 'ComponentPlot'],
     title: ['Attribute', 'AttributeTitle'],
-    width: ['Attribute', 'AttributeWidth'],
+    width: ['Attribute', 'AttributeSize'],
     size: ['Attribute', 'AttributeSize'],
     color: ['Attribute', 'AttributeColor'],
     colour: ['Attribute', 'AttributeColor'],
@@ -50,6 +58,7 @@ module.exports = {
     '(red|pink|orange|yellow|gold|magenta|violet|purple|blue|green|white|black|gray|cyan)': 'ValueColor',
     '(circle|square|diamond|cross|pentagon|hexagon|octagon|star|hexagram)': 'ValueSymbol',
     '(x|y|z)': 'ComponentAxis',
+    '(solid|dot|dash)': 'ValueDash',
   },
   rules: {
 

@@ -66,4 +66,56 @@ describe('api.nlp.scatterPlot', () => {
       },
     ]);
   });
+
+  it('should return an updateStyle action on getActions with sentence "Change line width to 12"', () => {
+    const target = NLP.getActions('Change line width to 12', 'scatter', [{ type: 'scatter' }], {});
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateStyle',
+        value: {
+          'line.width': 12,
+        },
+      },
+    ]);
+  });
+
+  it('should return an updateStyle action on getActions with sentence "Use dash line"', () => {
+    const target = NLP.getActions('Use dash line', 'scatter', [{ type: 'scatter' }], {});
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateStyle',
+        value: {
+          'line.dash': 'dash',
+        },
+      },
+    ]);
+  });
+
+  it('should return an updateStyle action on getActions with sentence "Show line"', () => {
+    const target = NLP.getActions('Show line', 'scatter', [{ type: 'scatter' }], {});
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateStyle',
+        value: {
+          mode: 'lines+markers',
+        },
+      },
+    ]);
+  });
+
+  it('should return an updateStyle action on getActions with sentence "Hide line"', () => {
+    const target = NLP.getActions('Hide line', 'scatter', [{ type: 'scatter' }], {});
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateStyle',
+        value: {
+          mode: 'markers',
+        },
+      },
+    ]);
+  });
 });

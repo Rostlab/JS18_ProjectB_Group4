@@ -3,11 +3,11 @@ const request = require('supertest');
 const server = require('../../../app');
 
 describe('api.controllers.nlpController', () => {
-  it('should return an updateStyle action on POST /api/nlp for sentence "Change plot title to Pie Chart"', (done) => {
+  it('should return an updateStyle action on POST /api/nlp for sentence "Change plot title to \'Pie Chart\'"', (done) => {
     request(server)
       .post('/api/nlp')
       .send({
-        sentence: 'Change plot title to Pie Chart',
+        sentence: 'Change plot title to \'Pie Chart\'',
         data: [
           {
             type: 'pie',

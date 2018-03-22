@@ -28,11 +28,11 @@ describe('api.nlp.pie', () => {
     ]);
   });
 
-  it('should return an updateStyle action on getActions with sentence "Change color of Residential, Non-Residential, Utility to red, green ,blue"', () => {
-    const target = NLP.getActions('Change color of Residential, Non-Residential, Utility to green, blue ,red', 'pie', [
+  it('should return an updateStyle action on getActions with sentence "Change color of Residential, Non_Residential, Utility to red, green, blue"', () => {
+    const target = NLP.getActions('Change color of Residential, Non_Residential, Utility to green, blue, red', 'pie', [
       {
         values: [19, 26, 55],
-        labels: ['Residential', 'Non-Residential', 'Utility'],
+        labels: ['Residential', 'Non_Residential', 'Utility'],
         type: 'pie',
         marker: {
           colors: ['red', 'green', 'blue'],
