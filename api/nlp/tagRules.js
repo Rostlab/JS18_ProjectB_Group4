@@ -88,10 +88,42 @@ module.exports = {
     },
     {
       match: [
+        ['ComponentLine', 'AttributeSize', 'Value'],
+      ],
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
+        return ScatterPlot.changeLineWidth(matchTags.Value.values().numbers()[0]);
+      },
+    },
+    {
+      match: [
+        ['ActionHide', 'ComponentLine'],
+      ],
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
+        return ScatterPlot.changeScatterMode('markers');
+      },
+    },
+    {
+      match: [
+        ['ActionShow', 'ComponentLine'],
+      ],
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
+        return ScatterPlot.changeScatterMode('lines+markers');
+      },
+    },
+    {
+      match: [
         ['ValueSymbol'],
       ],
       actions(data, layout, matchRule, matchTags, nlpSentence) {
         return ScatterPlot.changeMarkerSymbol(matchTags.ValueSymbol.out('normal'));
+      },
+    },
+    {
+      match: [
+        ['ValueDash'],
+      ],
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
+        return ScatterPlot.changeLineDash(matchTags.ValueDash.out('normal'));
       },
     },
   ],
