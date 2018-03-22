@@ -80,7 +80,7 @@ module.exports = {
     },
     {
       match: [
-        ['ComponentLine', 'AttributeColor', 'ValueColor'],
+        ['ComponentLine', 'ValueColor'],
       ],
       actions(data, layout, matchRule, matchTags, nlpSentence) {
         return ScatterPlot.changeLineColor(matchTags.ValueColor.out('normal'));
