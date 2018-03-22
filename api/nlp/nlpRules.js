@@ -24,7 +24,9 @@ module.exports = {
   },
   words: {
     hide: ['Action', 'ActionHide'],
+    dismiss: ['Action', 'ActionHide'],
     show: ['Action', 'ActionShow'],
+    display: ['Action', 'ActionShow'],
     legend: ['Component', 'ComponentLegend'],
     legends: ['Component', 'ComponentLegend'],
     line: ['Component', 'ComponentLine'],
