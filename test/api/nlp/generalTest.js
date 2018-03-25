@@ -72,14 +72,18 @@ describe('api.nlp.general', () => {
     ]);
   });
 
-  it('should return an updateLayout action on getActions with sentence "Hide legend"', () => {
-    const target = NLP.getActions('Hide legend', 'scatter', [{ type: 'scatter' }], {});
+  it('should return an updateLayout action on getActions with sentence "Change legend size to 14"', () => {
+    const target = NLP.getActions('Change legend size to 14', 'scatter', [{ type: 'scatter' }], {});
 
     expect(target).to.deep.equal([
       {
         action: 'updateLayout',
         value: {
-          showlegend: false,
+          legend: {
+            font: {
+              size: 14,
+            },
+          },
         },
       },
     ]);

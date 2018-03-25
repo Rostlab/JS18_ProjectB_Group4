@@ -38,9 +38,23 @@ function changeLegendPosition(x, y) {
   return actionHelper.updateOneLayout('legend', update);
 }
 
+/**
+ * Updates the legend position in the chart.
+ * @param {number} x New x position of the legend (0-1)
+ * @returns {any} Updated layout of the chart.
+ */
+function changeLegendSize(x) {
+  const update = {};
+  const font = {};
+  font.size = x;
+  update.font = font;
+  return actionHelper.updateOneLayout('legend', update);
+}
+
 module.exports = {
   changeTitle,
   showLegend,
   hideLegend,
   changeLegendPosition,
+  changeLegendSize,
 };

@@ -27,6 +27,13 @@ module.exports = {
       },
     },
     {
+      match: [['AttributeSize', 'ComponentLegend', 'Value']],
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
+        const size = matchTags.Value.values().numbers()[0];
+        return General.changeLegendSize(size);
+      },
+    },
+    {
       match: [['AttributeTitle', 'Quotation']],
       actions(data, layout, matchRule, matchTags, nlpSentence) {
         return General.changeTitle(nlpSentence
