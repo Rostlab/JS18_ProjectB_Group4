@@ -40,7 +40,7 @@ function changeLegendPosition(x, y) {
 
 /**
  * Updates the legend position in the chart.
- * @param {number} x New x position of the legend (0-1)
+ * @param {number} x New x position of the legend.
  * @returns {any} Updated layout of the chart.
  */
 function changeLegendSize(x) {
@@ -51,10 +51,24 @@ function changeLegendSize(x) {
   return actionHelper.updateOneLayout('legend', update);
 }
 
+/**
+ * Updates the axis title in the chart.
+ * @param {string} axis Name of the axis (x/y/z).
+ * @param {string} title New title of the axis.
+ * @returns {any} Updated layout of the chart.
+ */
+function changeAxisTitle(axis, title) {
+  const axisName = `${axis}axis`;
+  const update = {};
+  update.title = title;
+  return actionHelper.updateOneLayout(axisName, update);
+}
+
 module.exports = {
   changeTitle,
   showLegend,
   hideLegend,
   changeLegendPosition,
   changeLegendSize,
+  changeAxisTitle,
 };

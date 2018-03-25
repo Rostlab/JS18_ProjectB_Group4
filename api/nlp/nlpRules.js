@@ -39,6 +39,9 @@ module.exports = {
     bar: ['Component', 'ComponentBar'],
     gridline: ['Component', 'ComponentGridLine'],
     plot: ['Component', 'ComponentPlot'],
+    xaxis: ['Component', 'ComponentAxis'],
+    yaxis: ['Component', 'ComponentAxis'],
+    zaxis: ['Component', 'ComponentAxis'],
     title: ['Attribute', 'AttributeTitle'],
     width: ['Attribute', 'AttributeSize'],
     size: ['Attribute', 'AttributeSize'],
@@ -55,15 +58,12 @@ module.exports = {
     value: ['PValue', 'ValueValue'],
   },
   patterns: {
-    '(red|pink|orange|yellow|gold|magenta|violet|purple|blue|green|white|black|gray|cyan)': 'ValueColor',
+    '(red|pink|orange|yellow|gold|magenta|violet|purple|blue|green|white|black|gray|cyan)':
+      'ValueColor',
     '(circle|square|diamond|cross|pentagon|hexagon|octagon|star|hexagram)': 'ValueSymbol',
     '(x|y|z)': 'ComponentAxis',
     '(solid|dot|dash)': 'ValueDash',
   },
-  rules: {
-
-  },
-  plural: {
-
-  },
+  rules: {},
+  plural: {},
 };

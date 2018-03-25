@@ -75,4 +75,19 @@ describe('api.model.general', () => {
       },
     ]);
   });
+
+  it('should return an updateLayout action on changeAxisTitle(x, New Title)', () => {
+    const target = General.changeAxisTitle('x', 'New Title');
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateLayout',
+        value: {
+          xaxis: {
+            title: 'New Title',
+          },
+        },
+      },
+    ]);
+  });
 });

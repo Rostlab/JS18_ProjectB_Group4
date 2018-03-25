@@ -88,4 +88,24 @@ describe('api.nlp.general', () => {
       },
     ]);
   });
+
+  it('should return an updateLayout action on getActions with sentence "Change yaxis title to \'hello world\'"', () => {
+    const target = NLP.getActions(
+      "Change yaxis title to 'hello world'",
+      'scatter',
+      [{ type: 'scatter' }],
+      {},
+    );
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateLayout',
+        value: {
+          yaxis: {
+            title: 'hello world',
+          },
+        },
+      },
+    ]);
+  });
 });

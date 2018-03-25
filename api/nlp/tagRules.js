@@ -34,6 +34,19 @@ module.exports = {
       },
     },
     {
+      match: [['ComponentAxis', 'AttributeTitle', 'Quotation']],
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
+        return General.changeAxisTitle(
+          matchTags.ComponentAxis.data()[0].normal[0],
+          nlpSentence
+            .quotations(0)
+            .out('text')
+            .trim()
+            .slice(1, -1),
+        );
+      },
+    },
+    {
       match: [['AttributeTitle', 'Quotation']],
       actions(data, layout, matchRule, matchTags, nlpSentence) {
         return General.changeTitle(nlpSentence
