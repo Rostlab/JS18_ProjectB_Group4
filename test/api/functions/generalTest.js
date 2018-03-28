@@ -58,4 +58,36 @@ describe('api.model.general', () => {
       },
     ]);
   });
+
+  it('should return an updateLayout action on changeLegendSize(x)', () => {
+    const target = General.changeLegendSize(1);
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateLayout',
+        value: {
+          legend: {
+            font: {
+              size: 1,
+            },
+          },
+        },
+      },
+    ]);
+  });
+
+  it('should return an updateLayout action on changeAxisTitle(x, New Title)', () => {
+    const target = General.changeAxisTitle('x', 'New Title');
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateLayout',
+        value: {
+          xaxis: {
+            title: 'New Title',
+          },
+        },
+      },
+    ]);
+  });
 });
