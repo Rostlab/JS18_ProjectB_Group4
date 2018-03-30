@@ -82,7 +82,8 @@ module.exports = {
       },
     },
   ],
-  bar: [{
+  bar: [
+    {
       match: [['ComponentBar', 'AttributeOrder', 'Quotation+']],
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
           return BarChart.changeCategoryOrder(layout,nlpSentence
@@ -95,8 +96,10 @@ module.exports = {
             )
          );
       },
-  }],
-  histogram: [{
+    }
+  ],
+  histogram: [
+    {
       match: [['ComponentBin', 'Value']],
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
           return Histogram.setXbins(layout, 
@@ -105,8 +108,8 @@ module.exports = {
               null,
               matchTags.Value.values().numbers()[0]);
       },
-  },
-  {
+    },
+    {
       match: [['ComponentAxis', 'AttributeRange', 'NumericValue+']],
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
           return Histogram.setXbins(layout, 
@@ -115,7 +118,8 @@ module.exports = {
               null, 
               null);
       },
-  }],
+    }
+  ],
   pie: [
     {
       match: [['ValuePercent']],

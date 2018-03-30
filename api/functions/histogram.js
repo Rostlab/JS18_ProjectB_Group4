@@ -28,7 +28,7 @@ function setXbins(layout, start, end, size, nbin) {
   if (nbin) {
     finalSize = (finalEnd - finalStart) / nbin;
   } else if (!finalSize) {
-      finalSize = (finalEnd - finalStart) / 5;
+    finalSize = (finalEnd - finalStart) / 5;
   }
   const update = {
     autobinx,
