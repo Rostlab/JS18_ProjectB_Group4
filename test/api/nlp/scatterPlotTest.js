@@ -41,6 +41,19 @@ describe('api.nlp.scatterPlot', () => {
     ]);
   });
 
+  it('should return an updateStyle action on getActions with sentence "Increase marker size by 50%"', () => {
+    const target = NLP.getActions('Increase marker size by 50%', 'scatter', [{ type: 'scatter' }], {});
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateStyle',
+        value: {
+          'marker.size': 9,
+        },
+      },
+    ]);
+  });
+
   it('should return an updateStyle action on getActions with sentence "Change marker opacity to 70%"', () => {
     const target = NLP.getActions('Change marker opacity to 70%', 'scatter', [{ type: 'scatter' }], {});
 
@@ -49,6 +62,19 @@ describe('api.nlp.scatterPlot', () => {
         action: 'updateStyle',
         value: {
           'marker.opacity': 0.7,
+        },
+      },
+    ]);
+  });
+
+  it('should return an updateStyle action on getActions with sentence "Change marker color to red"', () => {
+    const target = NLP.getActions('Change marker color to red', 'scatter', [{ type: 'scatter' }], {});
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateStyle',
+        value: {
+          'marker.color': 'red',
         },
       },
     ]);
@@ -112,6 +138,20 @@ describe('api.nlp.scatterPlot', () => {
     expect(target).to.deep.equal([
       {
         action: 'updateStyle',
+        value: {
+          mode: 'markers',
+        },
+      },
+    ]);
+  });
+
+  it('should return an updateStyle action on getActions with sentence "Hide line for data_1"', () => {
+    const target = NLP.getActions('Hide line for data_1', 'scatter', [{ type: 'scatter', name: 'Data_1' }], {});
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateStyle',
+        trace: [0],
         value: {
           mode: 'markers',
         },

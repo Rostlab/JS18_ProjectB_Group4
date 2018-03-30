@@ -11,7 +11,7 @@ function changeTitle(title) {
 
 /**
  * Hides legend in the chart.
- * @returns {any} Updated layout of the chart.11
+ * @returns {any} Updated layout of the chart.
  */
 function hideLegend() {
   return actionHelper.updateOneLayout('showlegend', false);
@@ -23,6 +23,30 @@ function hideLegend() {
  */
 function showLegend() {
   return actionHelper.updateOneLayout('showlegend', true);
+}
+
+/**
+ * Hides gridline of some axis.
+ * @param {string} axis Name of the axis (x/y/z).
+ * @returns {any} Updated layout of the chart.
+ */
+function hideGridline(axis) {
+  const axisName = `${axis}axis`;
+  const update = {};
+  update.showgrid = false;
+  return actionHelper.updateOneLayout(axisName, update);
+}
+
+/**
+ * Shows gridline of some axis.
+ * @param {string} axis Name of the axis (x/y/z).
+ * @returns {any} Updated layout of the chart.
+ */
+function showGridline(axis) {
+  const axisName = `${axis}axis`;
+  const update = {};
+  update.showgrid = true;
+  return actionHelper.updateOneLayout(axisName, update);
 }
 
 /**
@@ -39,14 +63,14 @@ function changeLegendPosition(x, y) {
 }
 
 /**
- * Updates the legend position in the chart.
- * @param {number} x New x position of the legend.
+ * Updates the legend font size in the chart.
+ * @param {number} size New font size of the legend.
  * @returns {any} Updated layout of the chart.
  */
-function changeLegendSize(x) {
+function changeLegendSize(size) {
   const update = {};
   const font = {};
-  font.size = x;
+  font.size = size;
   update.font = font;
   return actionHelper.updateOneLayout('legend', update);
 }
@@ -64,11 +88,28 @@ function changeAxisTitle(axis, title) {
   return actionHelper.updateOneLayout(axisName, update);
 }
 
+/**
+ * Updates the axis range in the chart.
+ * @param {string} axis Name of the axis (x/y/z).
+ * @param {any} from Start number
+ * @param {any} to End number
+ * @returns {any} Updated layout of the chart.
+ */
+function changeAxisRange(axis, from, to) {
+  const axisName = `${axis}axis`;
+  const update = {};
+  update.range = [from, to];
+  return actionHelper.updateOneLayout(axisName, update);
+}
+
 module.exports = {
   changeTitle,
   showLegend,
   hideLegend,
+  hideGridline,
+  showGridline,
   changeLegendPosition,
   changeLegendSize,
   changeAxisTitle,
+  changeAxisRange,
 };
