@@ -49,27 +49,28 @@ module.exports = {
       },
     },
     {
-        match: [['AttributeTitle', 'Quotation']],
+      match: [['AttributeTitle', 'Quotation']],
       actions(data, layout, matchRule, matchTags, nlpSentence) {
-        return General.changeTitle(nlpSentence
-          .quotations(0)
-          .out('text')
-          .trim()
+            return General.changeTitle(nlpSentence
+            .quotations(0)
+            .out('text')
+            .trim()
           .slice(1, -1));
       },
     },
   ],
   bar: [{
-      match: [['ComponentBar', 'AttributeOrder','Quotation+']],
+      match: [['ComponentBar', 'AttributeOrder', 'Quotation+']],
       actions(data, layout, matchRule, matchTags, nlpSentence) {
           return BarChart.changeCategoryOrder(layout,nlpSentence
-            .quotations().map(quot=>
+            .quotations().map(quot =>
             {return quot.out('text')
             .trim()
             .slice(1, -1);
             }));
       },
-  }],
+  }
+  ],
   histogram: [{
       match: [['ComponentBin', 'Value']],
       actions(data, layout, matchRule, matchTags, nlpSentence) {
