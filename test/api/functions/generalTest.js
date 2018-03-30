@@ -43,6 +43,36 @@ describe('api.model.general', () => {
     ]);
   });
 
+  it('should return an updateLayout action on showGridline(axis)', () => {
+    const target = General.showGridline('x');
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateLayout',
+        value: {
+          xaxis: {
+            showgrid: true,
+          },
+        },
+      },
+    ]);
+  });
+
+  it('should return an updateLayout action on hideGridline(axis)', () => {
+    const target = General.hideGridline('y');
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateLayout',
+        value: {
+          yaxis: {
+            showgrid: false,
+          },
+        },
+      },
+    ]);
+  });
+
   it('should return an updateLayout action on changeLegendPosition(x, y)', () => {
     const target = General.changeLegendPosition(1, 0.5);
 
@@ -59,7 +89,7 @@ describe('api.model.general', () => {
     ]);
   });
 
-  it('should return an updateLayout action on changeLegendSize(x)', () => {
+  it('should return an updateLayout action on changeLegendSize(size)', () => {
     const target = General.changeLegendSize(1);
 
     expect(target).to.deep.equal([
@@ -76,7 +106,7 @@ describe('api.model.general', () => {
     ]);
   });
 
-  it('should return an updateLayout action on changeAxisTitle(x, New Title)', () => {
+  it('should return an updateLayout action on changeAxisTitle(axis, title)', () => {
     const target = General.changeAxisTitle('x', 'New Title');
 
     expect(target).to.deep.equal([
@@ -85,6 +115,21 @@ describe('api.model.general', () => {
         value: {
           xaxis: {
             title: 'New Title',
+          },
+        },
+      },
+    ]);
+  });
+
+  it('should return an updateLayout action on changeAxisRange(axis, from, to)', () => {
+    const target = General.changeAxisRange('x', 0, 10);
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateLayout',
+        value: {
+          xaxis: {
+            range: [0, 10],
           },
         },
       },

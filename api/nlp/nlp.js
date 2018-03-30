@@ -11,9 +11,10 @@ nlp.plugin(nlpRules);
  * @param {any} nlpSentence NLP query sentence.
  * @param {any} data Chart.data object.
  * @param {any} layout Chart.layout object.
+ * @param {any} traces Traces of chart
  * @returns {any} Action if given sentence applies to given rules. Else returns null.
  */
-function getActionsBySentenceRuleList(sentenceRuleList, nlpSentence, data, layout) {
+function getActionsBySentenceRuleList(sentenceRuleList, nlpSentence, data, layout, traces) {
   for (let i = 0; i < sentenceRuleList.length; i++) {
     const rule = sentenceRuleList[i];
     for (let j = 0; j < rule.match.length; j++) {
@@ -31,18 +32,19 @@ function getActionsBySentenceRuleList(sentenceRuleList, nlpSentence, data, layou
  * @param {any} nlpSentence NLP query sentence.
  * @param {any} data Chart.data object.
  * @param {any} layout Chart.layout object.
+ * @param {any} traces Traces of chart
  * @returns {any} Action if given sentence applies to given rules. Else returns null.
  */
-function getActionsByTagRuleList(tagRuleList, nlpSentence, data, layout) {
+function getActionsByTagRuleList(tagRuleList, nlpSentence, data, layout, traces) {
   for (let i = 0; i < tagRuleList.length; i++) {
     const rule = tagRuleList[i];
     for (let j = 0; j < rule.match.length; j++) {
       const matchTags = {};
       for (let k = 0; k < rule.match[j].length; k++) {
         let tag = `#${rule.match[j][k]}`;
-        if (tag === '#ValueLabel' || tag === '#ValueLabel+') {
+        if (tag === '#Label' || tag === '#Label+') {
           const labels = data[0].labels || [];
-          tag = tag.replace('#ValueLabel', `(${labels.join('|').toLowerCase()})`);
+          tag = tag.replace('#Label', `(${labels.join('|').toLowerCase()})`);
         }
         const match = nlpSentence.match(tag);
         if (!match.out().trim()) {
@@ -50,7 +52,11 @@ function getActionsByTagRuleList(tagRuleList, nlpSentence, data, layout) {
         }
         matchTags[rule.match[j][k]] = match;
         if (k === rule.match[j].length - 1) {
-          return rule.actions(data, layout, j, matchTags, nlpSentence);
+          const matchTraces = nlpSentence.match(`(${Object.keys(traces).join('|')})`);
+          const tracesInSentence = matchTraces.out('array');
+          const tracesIndexes = tracesInSentence.map(trace => traces[trace]);
+
+          return rule.actions(data, layout, j, matchTags, nlpSentence, tracesIndexes);
         }
       }
     }
@@ -73,12 +79,22 @@ function getActions(sentence, chartType, data, layout) {
     return null;
   }
 
+  const traces = {};
+
+  data.forEach((trace, i) => {
+    if (trace.name) {
+      traces[trace.name.toLowerCase()] = i;
+    } else {
+      traces[`trace_${i}`] = i;
+    }
+  });
+
   // Try matching general rules first then try matching chart type specific rules.
   return (
-    getActionsBySentenceRuleList(sentenceRules.general, nlpSentence, data, layout) ||
-    getActionsBySentenceRuleList(sentenceRules[chartType], nlpSentence, data, layout) ||
-    getActionsByTagRuleList(tagRules.general, nlpSentence, data, layout) ||
-    getActionsByTagRuleList(tagRules[chartType], nlpSentence, data, layout)
+    getActionsBySentenceRuleList(sentenceRules.general, nlpSentence, data, layout, traces) ||
+    getActionsBySentenceRuleList(sentenceRules[chartType], nlpSentence, data, layout, traces) ||
+    getActionsByTagRuleList(tagRules.general, nlpSentence, data, layout, traces) ||
+    getActionsByTagRuleList(tagRules[chartType], nlpSentence, data, layout, traces)
   );
 }
 
