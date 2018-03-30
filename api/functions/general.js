@@ -39,14 +39,14 @@ function changeLegendPosition(x, y) {
 }
 
 /**
- * Updates the legend position in the chart.
- * @param {number} x New x position of the legend.
+ * Updates the legend font size in the chart.
+ * @param {number} size New font size of the legend.
  * @returns {any} Updated layout of the chart.
  */
-function changeLegendSize(x) {
+function changeLegendSize(size) {
   const update = {};
   const font = {};
-  font.size = x;
+  font.size = size;
   update.font = font;
   return actionHelper.updateOneLayout('legend', update);
 }

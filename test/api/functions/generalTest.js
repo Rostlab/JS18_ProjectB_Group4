@@ -59,7 +59,7 @@ describe('api.model.general', () => {
     ]);
   });
 
-  it('should return an updateLayout action on changeLegendSize(x)', () => {
+  it('should return an updateLayout action on changeLegendSize(size)', () => {
     const target = General.changeLegendSize(1);
 
     expect(target).to.deep.equal([
@@ -76,7 +76,7 @@ describe('api.model.general', () => {
     ]);
   });
 
-  it('should return an updateLayout action on changeAxisTitle(x, New Title)', () => {
+  it('should return an updateLayout action on changeAxisTitle(axis, title)', () => {
     const target = General.changeAxisTitle('x', 'New Title');
 
     expect(target).to.deep.equal([
