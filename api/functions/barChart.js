@@ -1,6 +1,6 @@
 /**
- * updates order of defined bars. 
- * the names should math the categorical axis. 
+ * updates order of defined bars.
+ * the names should math the categorical axis.
  * it an be any axix(x,y,z)
  * @param {any} layout needs layout object to get axix type.
  * @param {string[]} categoryArray new order of bars.
