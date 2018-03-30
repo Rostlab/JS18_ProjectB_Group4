@@ -1,13 +1,5 @@
 const actionHelper = require('../helpers/actionHelper');
-/**
- * Changes number of bins either by limiting the axis(by start or end) or explicitly defining number of bins(nbin) or size of one bin=(end-start)/nbin
- * @param {any} layout needs layout object to get axix type.
- * @param {string} start new order of bars.
- * @param {string} end it defines which axis has the categorical data.
- * @param {string} size size of one bin=(end-start)/nbin. if you set size you do not need to set the nbin.
- * @param {string} nbin explicitly defines number of bins.
- * @returns {any} Updated layout for the chart.
- */
+
 function setXbins(layout, start, end, size, nbin) {
   let finalStart = start;
   let finalEnd = end;
@@ -26,7 +18,7 @@ function setXbins(layout, start, end, size, nbin) {
   if (nbin) {
     finalSize = (finalEnd - finalStart) / nbin;
   } else if (!finalSize) {
-      finalSize = (finalEnd - finalStart) / 5;
+    autobinx = true;
   }
   const update = {
     autobinx,

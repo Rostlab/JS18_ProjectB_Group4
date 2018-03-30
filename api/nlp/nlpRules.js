@@ -36,7 +36,6 @@ module.exports = {
     marker: ['Component', 'ComponentMarker'],
     dot: ['Component', 'ComponentDot'],
     bin: ['Component', 'ComponentBin'],
-    bins: ['Component', 'ComponentBin'],
     bar: ['Component', 'ComponentBar'],
     gridline: ['Component', 'ComponentGridLine'],
     plot: ['Component', 'ComponentPlot'],
