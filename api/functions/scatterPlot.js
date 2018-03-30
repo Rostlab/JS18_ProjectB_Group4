@@ -47,9 +47,28 @@ function changeMarkerSize(size, trace) {
   return actionHelper.updateOneStyle('marker.size', size, trace);
 }
 
+// multiplier be any number
+function changeMarkerSizeBy(data, multiplier, trace) {
+  let result = [];
+
+  data.forEach((dataTrace, i) => {
+    if (!trace || trace.length === 0 || i in trace) {
+      const oldSize = (dataTrace.marker && dataTrace.marker.size) ? dataTrace.marker.size : 6;
+      result = result.concat(actionHelper.updateOneStyle('marker.size', oldSize * multiplier, trace));
+    }
+  });
+
+  return result;
+}
+
 // 0 <= opacity <= 1
 function changeMarkerOpacity(opacity, trace) {
   return actionHelper.updateOneStyle('marker.opacity', opacity, trace);
+}
+
+// html color (hex or name)
+function changeMarkerColor(color, trace) {
+  return actionHelper.updateOneStyle('marker.color', color, trace);
 }
 
 // html color (hex or name)
@@ -93,7 +112,9 @@ function changeScatterMode(mode, trace) {
 module.exports = {
   changeMarkerSymbol,
   changeMarkerSize,
+  changeMarkerSizeBy,
   changeMarkerOpacity,
+  changeMarkerColor,
   changeLineColor,
   changeLineWidth,
   changeLineShape,

@@ -1,5 +1,5 @@
 function updateStyles(styleUpdates, trace) {
-  if (trace) {
+  if (trace && trace.length > 0) {
     return [
       {
         action: 'updateStyle',
