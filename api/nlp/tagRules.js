@@ -49,7 +49,7 @@ module.exports = {
       },
     },
     {
-      match: [['AttributeTitle', 'AttributeOrder']],
+        match: [['AttributeTitle', 'Quotation']],
       actions(data, layout, matchRule, matchTags, nlpSentence) {
         return General.changeTitle(nlpSentence
           .quotations(0)
@@ -60,7 +60,7 @@ module.exports = {
     },
   ],
   bar: [{
-      match: [['ComponentBar', 'order','Quotation+']],
+      match: [['ComponentBar', 'AttributeOrder','Quotation+']],
       actions(data, layout, matchRule, matchTags, nlpSentence) {
           return BarChart.changeCategoryOrder(layout,nlpSentence
             .quotations().map(quot=>
