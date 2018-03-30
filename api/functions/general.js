@@ -11,7 +11,7 @@ function changeTitle(title) {
 
 /**
  * Hides legend in the chart.
- * @returns {any} Updated layout of the chart.11
+ * @returns {any} Updated layout of the chart.
  */
 function hideLegend() {
   return actionHelper.updateOneLayout('showlegend', false);
