@@ -96,13 +96,21 @@ module.exports = {
   histogram: [{
       match: [['ComponentBin', 'Value']],
       actions(data, layout, matchRule, matchTags, nlpSentence) {
-          return Histogram.setXbins(layout, null, null, null, matchTags.Value.values().numbers()[0]);
+          return Histogram.setXbins(layout, 
+              null, 
+              null, 
+              null, 
+              matchTags.Value.values().numbers()[0]);
       },
   },
   {
-      match: [['ComponentAxis', 'AttributeRange','NumericValue+']],
+      match: [['ComponentAxis', 'AttributeRange', 'NumericValue+']],
       actions(data, layout, matchRule, matchTags, nlpSentence) {
-          return Histogram.setXbins(layout, matchTags.NumericValue.values().numbers()[0], matchTags.NumericValue.values().numbers()[1], null, null);
+          return Histogram.setXbins(layout, 
+              matchTags.NumericValue.values().numbers()[0], 
+              matchTags.NumericValue.values().numbers()[1], 
+              null, 
+              null);
       },
   }],
   pie: [
