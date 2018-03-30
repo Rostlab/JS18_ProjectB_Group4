@@ -26,6 +26,30 @@ function showLegend() {
 }
 
 /**
+ * Hides gridline of some axis.
+ * @param {string} axis Name of the axis (x/y/z).
+ * @returns {any} Updated layout of the chart.
+ */
+function hideGridline(axis) {
+  const axisName = `${axis}axis`;
+  const update = {};
+  update.showgrid = false;
+  return actionHelper.updateOneLayout(axisName, update);
+}
+
+/**
+ * Shows gridline of some axis.
+ * @param {string} axis Name of the axis (x/y/z).
+ * @returns {any} Updated layout of the chart.
+ */
+function showGridline(axis) {
+  const axisName = `${axis}axis`;
+  const update = {};
+  update.showgrid = true;
+  return actionHelper.updateOneLayout(axisName, update);
+}
+
+/**
  * Updates the legend position in the chart.
  * @param {number} x New x position of the legend (0-1)
  * @param {number} y New y position of the legend (0-1)
@@ -82,6 +106,8 @@ module.exports = {
   changeTitle,
   showLegend,
   hideLegend,
+  hideGridline,
+  showGridline,
   changeLegendPosition,
   changeLegendSize,
   changeAxisTitle,

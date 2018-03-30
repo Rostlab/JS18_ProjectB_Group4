@@ -43,6 +43,36 @@ describe('api.model.general', () => {
     ]);
   });
 
+  it('should return an updateLayout action on showGridline(axis)', () => {
+    const target = General.showGridline('x');
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateLayout',
+        value: {
+          xaxis: {
+            showgrid: true,
+          },
+        },
+      },
+    ]);
+  });
+
+  it('should return an updateLayout action on hideGridline(axis)', () => {
+    const target = General.hideGridline('y');
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateLayout',
+        value: {
+          yaxis: {
+            showgrid: false,
+          },
+        },
+      },
+    ]);
+  });
+
   it('should return an updateLayout action on changeLegendPosition(x, y)', () => {
     const target = General.changeLegendPosition(1, 0.5);
 

@@ -17,6 +17,18 @@ module.exports = {
       },
     },
     {
+      match: [['ActionHide', 'ComponentAxis', 'ComponentGridLine']],
+      actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
+        return General.hideGridline(matchTags.ComponentAxis.data()[0].normal[0]);
+      },
+    },
+    {
+      match: [['ActionShow', 'ComponentAxis', 'ComponentGridLine']],
+      actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
+        return General.showGridline(matchTags.ComponentAxis.data()[0].normal[0]);
+      },
+    },
+    {
       match: [['AttributePosition', 'ComponentLegend', 'Value+']],
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         const tokens = matchTags['Value+']

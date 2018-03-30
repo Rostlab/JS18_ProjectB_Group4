@@ -51,6 +51,21 @@ describe('api.nlp.general', () => {
     ]);
   });
 
+  it('should return an updateLayout action on getActions with sentence "Hide x gridline"', () => {
+    const target = NLP.getActions('Hide x gridline', 'scatter', [{ type: 'scatter' }], {});
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateLayout',
+        value: {
+          xaxis: {
+            showgrid: false,
+          },
+        },
+      },
+    ]);
+  });
+
   it('should return an updateLayout action on getActions with sentence "Change legend position to 1,0"', () => {
     const target = NLP.getActions(
       'Change legend position to 1,0',
