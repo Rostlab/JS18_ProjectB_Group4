@@ -64,6 +64,20 @@ function changeAxisTitle(axis, title) {
   return actionHelper.updateOneLayout(axisName, update);
 }
 
+/**
+ * Updates the axis range in the chart.
+ * @param {string} axis Name of the axis (x/y/z).
+ * @param {any} from Start number
+ * @param {any} to End number
+ * @returns {any} Updated layout of the chart.
+ */
+function changeAxisRange(axis, from, to) {
+  const axisName = `${axis}axis`;
+  const update = {};
+  update.range = [from, to];
+  return actionHelper.updateOneLayout(axisName, update);
+}
+
 module.exports = {
   changeTitle,
   showLegend,
@@ -71,4 +85,5 @@ module.exports = {
   changeLegendPosition,
   changeLegendSize,
   changeAxisTitle,
+  changeAxisRange,
 };

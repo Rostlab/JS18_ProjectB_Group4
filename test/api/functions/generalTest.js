@@ -90,4 +90,19 @@ describe('api.model.general', () => {
       },
     ]);
   });
+
+  it('should return an updateLayout action on changeAxisRange(axis, from, to)', () => {
+    const target = General.changeAxisRange('x', 0, 10);
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateLayout',
+        value: {
+          xaxis: {
+            range: [0, 10],
+          },
+        },
+      },
+    ]);
+  });
 });

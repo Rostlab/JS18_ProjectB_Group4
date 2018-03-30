@@ -47,6 +47,16 @@ module.exports = {
       },
     },
     {
+      match: [['ComponentAxis', 'AttributeRange', 'Value']],
+      actions(data, layout, matchRule, matchTags, nlpSentence) {
+        return General.changeAxisRange(
+          matchTags.ComponentAxis.data()[0].normal[0],
+          matchTags.Value.values().numbers()[0],
+          matchTags.Value.values().numbers()[1],
+        );
+      },
+    },
+    {
       match: [['AttributeTitle', 'Quotation']],
       actions(data, layout, matchRule, matchTags, nlpSentence) {
         return General.changeTitle(nlpSentence

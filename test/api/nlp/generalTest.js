@@ -108,4 +108,24 @@ describe('api.nlp.general', () => {
       },
     ]);
   });
+
+  it('should return an updateLayout action on getActions with sentence "Change yaxis range from 1 to 5', () => {
+    const target = NLP.getActions(
+      'Change yaxis range from 1 to 5',
+      'scatter',
+      [{ type: 'scatter' }],
+      {},
+    );
+
+    expect(target).to.deep.equal([
+      {
+        action: 'updateLayout',
+        value: {
+          yaxis: {
+            range: [1, 5],
+          },
+        },
+      },
+    ]);
+  });
 });
