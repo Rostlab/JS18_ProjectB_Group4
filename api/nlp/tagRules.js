@@ -86,8 +86,9 @@ module.exports = {
     {
       match: [['ComponentBar', 'AttributeOrder', 'Quotation+']],
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
-        return BarChart.changeCategoryOrder(layout, nlpSentence
-          .quotations().map(quot => quot.out('text').trim().slice(1, -1)),
+        return BarChart.changeCategoryOrder(
+          layout,
+          nlpSentence.quotations().map(quot => quot.out('text').trim().slice(1, -1)),
         );
       },
     },
