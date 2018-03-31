@@ -1,6 +1,9 @@
 const General = require('../functions/general');
 const PieChart = require('../functions/pieChart');
 const ScatterPlot = require('../functions/scatterPlot');
+const BarChart = require('../functions/barChart');
+const Histogram = require('../functions/histogram');
+
 
 module.exports = {
   general: [
@@ -79,8 +82,43 @@ module.exports = {
       },
     },
   ],
-  bar: [],
-  histogram: [],
+  bar: [
+    {
+      match: [['ComponentBar', 'AttributeOrder', 'Quotation+']],
+      actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
+        return BarChart.changeCategoryOrder(
+          layout,
+          nlpSentence.quotations().map(quot => quot.out('text').trim().slice(1, -1)),
+        );
+      },
+    },
+  ],
+  histogram: [
+    {
+      match: [['ComponentBin', 'Value']],
+      actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
+        return Histogram.setXbins(
+          layout,
+          null,
+          null,
+          null,
+          matchTags.Value.values().numbers()[0],
+        );
+      },
+    },
+    {
+      match: [['ComponentAxis', 'AttributeRange', 'NumericValue+']],
+      actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
+        return Histogram.setXbins(
+          layout,
+          matchTags.NumericValue.values().numbers()[0],
+          matchTags.NumericValue.values().numbers()[1],
+          null,
+          null,
+        );
+      },
+    },
+  ],
   pie: [
     {
       match: [['ValuePercent']],
