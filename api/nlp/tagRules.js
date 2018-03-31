@@ -96,7 +96,8 @@ module.exports = {
     {
       match: [['ComponentBin', 'Value']],
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
-        return Histogram.setXbins(layout, 
+        return Histogram.setXbins(
+          layout,
           null,
           null,
           null,
@@ -108,10 +109,10 @@ module.exports = {
       match: [['ComponentAxis', 'AttributeRange', 'NumericValue+']],
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return Histogram.setXbins(
-          layout, 
-          matchTags.NumericValue.values().numbers()[0], 
-          matchTags.NumericValue.values().numbers()[1], 
-          null, 
+          layout,
+          matchTags.NumericValue.values().numbers()[0],
+          matchTags.NumericValue.values().numbers()[1],
+          null,
           null,
         );
       },
