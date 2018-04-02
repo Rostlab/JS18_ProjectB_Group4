@@ -157,6 +157,21 @@ function graphViewerController($scope, $http) {
     });
   };
 
+  $scope.changeAxisTitle = function (axisName, title) {
+    $scope.callBackendFunction('general', 'changeAxisTitle', {
+      axis: axisName,
+      title: title,
+    });
+  };
+
+  $scope.changeAxisRange = function (axisName, from, to) {
+    $scope.callBackendFunction('general', 'changeAxisRange', {
+      axis: axisName,
+      from: from,
+      to: to
+    });
+  };
+
   $scope.createScatterChart = function () {
     const trace1 = {
       x: [1, 2, 3, 4],
