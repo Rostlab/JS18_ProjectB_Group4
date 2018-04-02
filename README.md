@@ -5,8 +5,8 @@
 **[Demo](https://js2018-group4.azurewebsites.net/)**
 
 ## Requirements
-* [node.js]
-* [Express]
+* [node.js](https://nodejs.org/en/)
+* [Express](https://expressjs.com/)
 * [compromise](http://compromise.cool/)
 
 ### Installation
@@ -22,13 +22,11 @@ Visit http://localhost:3000 in the browser.
 
 ### Dev Dependencies
 
-Dillinger is currently extended with the following plugins. Instructions on how to use them in your own application are linked below.
-
 | Dependency | Readme  |
 | ------ | ------ |
 | Chai | https://github.com/chaijs/chai/README.md |
 | Mocha | https://github.com/chaijs/chai/README.md |
-| Eslint | [https://github.com/eslint/eslintREADME.md][PlGd] |
+| Eslint | https://github.com/eslint/eslintREADME.md |
 
 ### ESlint
 To run eslint on all js files, run
