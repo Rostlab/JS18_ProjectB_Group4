@@ -11,7 +11,7 @@
     ],
     "valid-jsdoc": "error",
     "require-jsdoc": [
-      "warn",
+      "error",
       {
         "require": {
           "FunctionDeclaration": true,
