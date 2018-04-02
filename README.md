@@ -1,41 +1,41 @@
+# iGraph - Project B - Group 4
+### Edit plots using natural language
+
 [![Build Status](https://travis-ci.org/Rostlab/JS18_ProjectB_Group4.svg?branch=develop)](https://travis-ci.org/Rostlab/JS18_ProjectB_Group4)
+**[Demo](https://js2018-group4.azurewebsites.net/)**
 
-## Prerequisites
+## Requirements
+* [node.js](https://nodejs.org/en/)
+* [Express](https://expressjs.com/)
+* [compromise](http://compromise.cool/)
 
-Both for the back end and front end application check
+### Installation
 
-* nodejs [official website](https://nodejs.org/en/) - nodejs includes [npm](https://www.npmjs.com/) (node package manager)
+Install the dependencies and devDependencies and start the server.
 
-## Setup (before first run)
-
-**install node dependencies**
-
+```sh
+$ cd JS18_ProjectB_Group4
+$ npm install
+$ npm start
 ```
-npm install
+Visit http://localhost:3000 in the browser.
+
+### Dev Dependencies
+
+| Dependency | Readme  |
+| ------ | ------ |
+| Chai | https://github.com/chaijs/chai/README.md |
+| Mocha | https://github.com/chaijs/chai/README.md |
+| Eslint | https://github.com/eslint/eslintREADME.md |
+
+### ESlint
+To run eslint on all js files, run
+```sh
+$ npm run lint
 ```
 
-## running
-
-start the web server
-
+### Testing
+For unit tests, simply run
+```sh
+$ npm run test
 ```
-npm start
-```
-
-## testing
-
-**Important** Make sure that mocha is installed globally as it is specified in [documentation](https://mochajs.org/#installation).
-
-Some tests are already implemented using the test framework mocha: Simply run
-
-```
-npm test
-```
-
-## eslint
-
-To run eslint on js files: 
-
-```
-npm run lint
-````
