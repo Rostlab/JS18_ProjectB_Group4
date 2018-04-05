@@ -73,12 +73,18 @@ function getActionsByTagRuleList(tagRuleList, nlpSentence, data, layout, traces)
  * @returns {any} Action if given sentence applies to given rules. Else returns null.
  */
 function getActions(sentence, chartType, data, layout) {
-  const nlpSentence = nlp(sentence);
-
-  if (!sentenceRules[chartType] || !tagRules[chartType] || !chartType || !data || !layout) {
+  if (
+    !sentence ||
+    !chartType ||
+    !sentenceRules[chartType] ||
+    !tagRules[chartType] ||
+    !data ||
+    !layout
+  ) {
     return null;
   }
 
+  const nlpSentence = nlp(sentence);
   const traces = {};
 
   data.forEach((trace, i) => {
