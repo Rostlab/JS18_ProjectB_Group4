@@ -27,13 +27,14 @@
             </form>
             <br/>
         </div>
-        <div ng-if="currentChartType == 'histogram'" style="justify-content: center; display: flex; margin:0 auto;">
-            <button type="submit" ng-click="callBackendFunctionOneParameter('histogram', 'setXbins', 'nbin', 5)">Change bin size to 5</button>
-            <button type="submit" ng-click="callBackendFunctionOneParameter('histogram', 'setXbins', 'nbin', 10)">Change bin size to 10</button>
+        <div ng-if="currentChartType == 'histogram'">
+            <button type="submit" ng-click="callBackendFunction('histogram', 'setXbins', {start: 0.2,end:0.5})">Change x range to from 0.2 to 0.5</button>
+            <button type="submit" ng-click="callBackendFunctionOneParameter('histogram', 'setXbins', 'size', 0.1)">Change bin size to 0.1</button>
+            <button type="submit" ng-click="callBackendFunctionOneParameter('histogram', 'setXbins', 'nbin', 5)">Use five bins</button>
         </div>
-        <div ng-if="currentChartType == 'bar'" style="justify-content: center; display: flex; margin:0 auto;">
-            <button type="submit" ng-click="callBackendFunctionOneParameter('bar', 'changeCategoryOrder', 'categoryArray', ['giraffes', 'monkeys', 'orangutans'])">Change category order to giraffes, monkeys, orangutan</button>
-            <button type="submit" ng-click="callBackendFunctionOneParameter('bar', 'changeCategoryOrder', 'categoryArray', ['orangutans', 'giraffes', 'monkeys'])">Change category order to orangutan, giraffes, monkeys</button>
+        <div ng-if="currentChartType == 'bar'">
+            <button type="submit" ng-click="callBackendFunctionOneParameter('bar', 'changeCategoryOrder', 'categoryArray', ['giraffes', 'monkeys', 'orangutans'])">Change category order to 'giraffes', 'monkeys', 'orangutan'</button>
+            <button type="submit" ng-click="callBackendFunctionOneParameter('bar', 'changeCategoryOrder', 'categoryArray', ['orangutans', 'giraffes', 'monkeys'])">Change category order to 'orangutan', 'giraffes', 'monkeys'</button>
         </div>
         <div ng-if="currentChartType == 'line' || currentChartType == 'scatter'" style="justify-content: center; display: flex; margin:0 auto;">
             <button type="submit" ng-click="callBackendFunctionOneParameter('scatter', 'changeMarkerSymbol', 'symbol', 'star')">Change marker to star</button>
@@ -77,6 +78,16 @@
                 <li>Display as absolute</li>
                 <li>Display as percentage</li>
                 <li>Change color of Residential, Non_Residential, Utility to green, blue, red</li>
+            </ul>
+            <h3>Histogram</h3>
+            <ul>
+                <li>Change x range to from 0.2 to 0.5</li>
+                <li>Change bin size to 0.1</li>
+                <li>Use five bins</li>
+            </ul>
+            <h3>Bar Chart</h3>
+            <ul>
+                <li>Change category order to 'giraffes', 'monkeys', 'orangutan'</li>
             </ul>
             <h3>Scatter Plot</h3>
             <ul>
