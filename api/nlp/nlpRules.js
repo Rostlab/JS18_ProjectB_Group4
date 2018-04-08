@@ -41,6 +41,7 @@ module.exports = {
     bin: ['Component', 'ComponentBin'],
     bins: ['Component', 'ComponentBin'],
     bar: ['Component', 'ComponentBar'],
+    bars: ['Component', 'ComponentBar'],
     gridline: ['Component', 'ComponentGridLine'],
     plot: ['Component', 'ComponentPlot'],
     xaxis: ['Component', 'ComponentAxis'],

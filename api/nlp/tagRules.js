@@ -4,7 +4,6 @@ const ScatterPlot = require('../functions/scatterPlot');
 const BarChart = require('../functions/barChart');
 const Histogram = require('../functions/histogram');
 
-
 module.exports = {
   general: [
     {
@@ -88,7 +87,10 @@ module.exports = {
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return BarChart.changeCategoryOrder(
           layout,
-          nlpSentence.quotations().map(quot => quot.out('text').trim().slice(1, -1)),
+          matchTags['Quotation+']
+            .data()[0]
+            .text.split(',')
+            .map(label => label.trim().slice(1, -1)),
         );
       },
     },
@@ -109,13 +111,7 @@ module.exports = {
     {
       match: [['ComponentBin', 'Value']],
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
-        return Histogram.setXbins(
-          layout,
-          null,
-          null,
-          null,
-          matchTags.Value.values().numbers()[0],
-        );
+        return Histogram.setXbins(layout, null, null, null, matchTags.Value.values().numbers()[0]);
       },
     },
     {

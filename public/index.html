@@ -6,21 +6,22 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="viewer.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/journal/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 
 <body ng-controller="graphViewerController as viewer">
     <div>
-        <div>
+        <div style="justify-content: center; display: flex; margin:0 auto;">
             <button type="submit" ng-click="createHistogram()">Histogram</button>
             <button type="submit" ng-click="createBarChart()">Bar Chart</button>
             <button type="submit" ng-click="createPieChart()">Pie Chart</button>
             <button type="submit" ng-click="createLineChart()">Line Chart</button>
             <button type="submit" ng-click="createScatterChart()">Scatter Chart</button>
         </div>
-        <div>
+        <div style="justify-content: center; display: flex; margin:0 auto;">
             <div id="plot"></div>
         </div>
-        <div ng-if="currentChartType">
+        <div ng-if="currentChartType" style="justify-content: center; display: flex; margin:0 auto;">
             <form ng-submit="submit()">
                 <input type="text" style="width: 500px" ng-model="viewer.sentence" />
             </form>
@@ -35,7 +36,7 @@
             <button type="submit" ng-click="callBackendFunctionOneParameter('bar', 'changeCategoryOrder', 'categoryArray', ['giraffes', 'monkeys', 'orangutans'])">Change category order to 'giraffes', 'monkeys', 'orangutan'</button>
             <button type="submit" ng-click="callBackendFunctionOneParameter('bar', 'changeCategoryOrder', 'categoryArray', ['orangutans', 'giraffes', 'monkeys'])">Change category order to 'orangutan', 'giraffes', 'monkeys'</button>
         </div>
-        <div ng-if="currentChartType == 'line' || currentChartType == 'scatter'">
+        <div ng-if="currentChartType == 'line' || currentChartType == 'scatter'" style="justify-content: center; display: flex; margin:0 auto;">
             <button type="submit" ng-click="callBackendFunctionOneParameter('scatter', 'changeMarkerSymbol', 'symbol', 'star')">Change marker to star</button>
             <button type="submit" ng-click="callBackendFunctionOneParameter('scatter', 'changeMarkerSymbol', 'symbol', 'circle')">Change marker to circle</button>
             <button type="submit" ng-click="callBackendFunctionOneParameter('scatter', 'changeMarkerSize', 'size', 5)">Change marker size to 5</button>
@@ -43,15 +44,22 @@
             <button type="submit" ng-click="callBackendFunctionOneParameter('scatter', 'changeLineDash', 'dash', 'solid')">Solid line</button>
             <button type="submit" ng-click="callBackendFunctionOneParameter('scatter', 'changeLineDash', 'dash', 'dash')">Dash line</button>
         </div>
-        <div ng-if="currentChartType == 'pie'">
+        <div ng-if="currentChartType == 'pie'" style="justify-content: center; display: flex; margin:0 auto;">
             <button type="submit" ng-click="callBackendFunction('pie', 'showAbsoluteValues')">Show Absolute Numbers</button>
             <button type="submit" ng-click="callBackendFunction('pie', 'showPercentageValues')">Show showPercentage</button>
             <button type="submit" ng-click="changeColors()">Change Colors</button>
         </div>
-        <div ng-if="currentChartType">
+        <div ng-if="currentChartType" style="justify-content: center; display: flex; margin:0 auto;">
             <button type="submit" ng-click="callBackendFunction('general', 'hideLegend')">Hide Legend</button>
             <button type="submit" ng-click="callBackendFunction('general', 'showLegend')">Show Legend</button>
-            <button type="submit" ng-click="changeLegendPosition()">Change Legend Position</button>
+            <button type="submit" ng-click="changeLegendPosition()">Change Legend Position to 1,0</button>
+            <button type="submit" ng-click="callBackendFunctionOneParameter('general', 'changeLegendSize', 'size', 15)">Change Legend Size to 15</button>
+        </div>
+        <div ng-if="currentChartType" style="justify-content: center; display: flex; margin:0 auto;">
+            <button type="submit" ng-click="changeAxisTitle('x', 'X Axis')">Change xaxis title to 'X Axis'</button>
+            <button type="submit" ng-click="changeAxisTitle('y', 'Y Axis')">Change yaxis title to 'Y Axis'</button>
+            <button type="submit" ng-click="changeAxisRange('x', 0, 10)">Change xaxis range from 0 to 10</button>
+            <button type="submit" ng-click="changeAxisRange('y', 2, 7)">Change yaxis range from 2 to 7</button>
         </div>
         <div>
             <h2>Sample NLP Commands</h2>
