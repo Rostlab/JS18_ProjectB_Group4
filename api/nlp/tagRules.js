@@ -95,6 +95,18 @@ module.exports = {
   ],
   histogram: [
     {
+      match: [['ComponentBin', 'AttributeSize', 'Value']],
+      actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
+        return Histogram.setXbins(
+          layout,
+          null,
+          null,
+          matchTags.Value.values().numbers()[0],
+          null,
+        );
+      },
+    },
+    {
       match: [['ComponentBin', 'Value']],
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return Histogram.setXbins(
