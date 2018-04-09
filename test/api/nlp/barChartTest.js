@@ -16,7 +16,11 @@ describe('api.nlp.bar', () => {
       "Change the order of bars to 'monkeys','orangutans','giraffes'",
       'bar',
       [{ type: 'bar' }],
-      {},
+      {
+        xaxis: {
+          type: 'category',
+        },
+      },
     );
 
     expect(actual).to.deep.equal(expected);
