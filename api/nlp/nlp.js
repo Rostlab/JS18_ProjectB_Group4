@@ -2,6 +2,8 @@ const nlp = require('compromise');
 const nlpRules = require('../nlp/nlpRules');
 const sentenceRules = require('../nlp/sentenceRules');
 const tagRules = require('../nlp/tagRules');
+const nlpHelper = require('../helpers/nlpHelper');
+const { multirange } = require('multi-integer-range');
 
 nlp.plugin(nlpRules);
 
@@ -38,26 +40,39 @@ function getActionsBySentenceRuleList(sentenceRuleList, nlpSentence, data, layou
 function getActionsByTagRuleList(tagRuleList, nlpSentence, data, layout, traces) {
   for (let i = 0; i < tagRuleList.length; i++) {
     const rule = tagRuleList[i];
-    for (let j = 0; j < rule.match.length; j++) {
-      const matchTags = {};
-      for (let k = 0; k < rule.match[j].length; k++) {
-        let tag = `#${rule.match[j][k]}`;
-        if (tag === '#Label' || tag === '#Label+') {
-          const labels = data[0].labels || [];
-          tag = tag.replace('#Label', `(${labels.join('|').toLowerCase()})`);
-        }
-        const match = nlpSentence.match(tag);
-        if (!match.out().trim()) {
+
+    const matchTags = {};
+    const matches = Object.keys(rule.match);
+
+    for (let j = 0; j < matches.length; j++) {
+      let tag = `#${matches[j]}`;
+      const matchCountRange = multirange(rule.match[matches[j]], { parseUnbounded: true });
+      if (tag === '#Label' || tag === '#Label+') {
+        const labels = data[0].labels || [];
+        tag = tag.replace('#Label', `(${labels.join('|').toLowerCase()})`);
+      }
+
+      let match = null;
+
+      if (tag === '#Quotation') {
+        match = nlpHelper.getQuotationsContents(nlpSentence.out('text'));
+        if (!matchCountRange.has(match.length)) {
           break;
         }
-        matchTags[rule.match[j][k]] = match;
-        if (k === rule.match[j].length - 1) {
-          const matchTraces = nlpSentence.match(`(${Object.keys(traces).join('|')})`);
-          const tracesInSentence = matchTraces.out('array');
-          const tracesIndexes = tracesInSentence.map(trace => traces[trace]);
-
-          return rule.actions(data, layout, j, matchTags, nlpSentence, tracesIndexes);
+      } else {
+        match = nlpSentence.match(tag);
+        if (!matchCountRange.has(match.data().length)) {
+          break;
         }
+      }
+
+      matchTags[matches[j]] = match;
+      if (j === matches.length - 1) {
+        const matchTraces = nlpSentence.match(`(${Object.keys(traces).join('|')})`);
+        const tracesInSentence = matchTraces.out('array');
+        const tracesIndexes = tracesInSentence.map(trace => traces[trace]);
+
+        return rule.actions(data, layout, j, matchTags, nlpSentence, tracesIndexes);
       }
     }
   }
