@@ -33,7 +33,13 @@ function postRequest(req, res) {
     return res.status(400).json({ message: 'Wrong data format: can not detect or invalid chart type' });
   }
 
-  const actions = NLP.getActions(req.body.sentence, chartType, req.body.data, req.body.layout);
+  let actions = null;
+
+  try {
+    actions = NLP.getActions(req.body.sentence, chartType, req.body.data, req.body.layout);
+  } catch (error) {
+    return res.status(400).json({ message: `Can not do what you asked: ${error.message}` });
+  }
 
   if (actions === null) {
     return res.status(400).json({ message: 'Unrecognized sentence' });

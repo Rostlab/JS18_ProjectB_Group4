@@ -126,4 +126,21 @@ describe('api.controllers.nlpController', () => {
         done();
       });
   });
+
+  it('should return response code of 400 on POST /api/nlp when function throws error', (done) => {
+    request(server)
+      .post('/api/nlp')
+      .send({
+        sentence: "Change the order of bars to 'monkeys','orangutans','giraffes'",
+        data: [{ type: 'bar' }],
+        layout: {},
+      })
+      .set('Accept', 'application/json')
+      .expect(400)
+      .expect({ message: 'Can not do what you asked: the axis is not type of category' })
+      .end((err) => {
+        should.not.exist(err);
+        done();
+      });
+  });
 });

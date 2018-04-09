@@ -7,31 +7,53 @@ const Histogram = require('../functions/histogram');
 module.exports = {
   general: [
     {
-      match: [['ActionHide', 'ComponentLegend']],
+      match: {
+        ActionHide: '1-',
+        ActionShow: 0,
+        ComponentLegend: '1-',
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return General.hideLegend();
       },
     },
     {
-      match: [['ActionShow', 'ComponentLegend']],
+      match: {
+        ActionShow: '1-',
+        ActionHide: 0,
+        ComponentLegend: '1-',
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return General.showLegend();
       },
     },
     {
-      match: [['ActionHide', 'ComponentAxis', 'ComponentGridLine']],
+      match: {
+        ActionHide: '1-',
+        ActionShow: 0,
+        ComponentAxis: 1,
+        ComponentGridLine: '1-',
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return General.hideGridline(matchTags.ComponentAxis.data()[0].normal[0]);
       },
     },
     {
-      match: [['ActionShow', 'ComponentAxis', 'ComponentGridLine']],
+      match: {
+        ActionShow: '1-',
+        ActionHide: 0,
+        ComponentAxis: 1,
+        ComponentGridLine: '1-',
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return General.showGridline(matchTags.ComponentAxis.data()[0].normal[0]);
       },
     },
     {
-      match: [['AttributePosition', 'ComponentLegend', 'Value+']],
+      match: {
+        AttributePosition: '1-',
+        ComponentLegend: '1-',
+        'Value+': 1,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         const tokens = matchTags['Value+']
           .data()[0]
@@ -41,27 +63,35 @@ module.exports = {
       },
     },
     {
-      match: [['AttributeSize', 'ComponentLegend', 'Value']],
+      match: {
+        AttributeSize: '1-',
+        ComponentLegend: '1-',
+        Value: 1,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         const size = matchTags.Value.values().numbers()[0];
         return General.changeLegendSize(size);
       },
     },
     {
-      match: [['ComponentAxis', 'AttributeTitle', 'Quotation']],
+      match: {
+        ComponentAxis: 1,
+        AttributeTitle: '1-',
+        Quotation: 1,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return General.changeAxisTitle(
           matchTags.ComponentAxis.data()[0].normal[0],
-          nlpSentence
-            .quotations(0)
-            .out('text')
-            .trim()
-            .slice(1, -1),
+          matchTags.Quotation[0],
         );
       },
     },
     {
-      match: [['ComponentAxis', 'AttributeRange', 'Value']],
+      match: {
+        ComponentAxis: 1,
+        AttributeRange: '1-',
+        Value: 2,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return General.changeAxisRange(
           matchTags.ComponentAxis.data()[0].normal[0],
@@ -71,33 +101,38 @@ module.exports = {
       },
     },
     {
-      match: [['AttributeTitle', 'Quotation']],
+      match: {
+        ComponentAxis: 0,
+        AttributeTitle: '1-',
+        Quotation: 1,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
-        return General.changeTitle(nlpSentence
-          .quotations(0)
-          .out('text')
-          .trim()
-          .slice(1, -1));
+        return General.changeTitle(matchTags.Quotation[0]);
       },
     },
   ],
   bar: [
     {
-      match: [['ComponentBar', 'AttributeOrder', 'Quotation+']],
+      match: {
+        ComponentBar: '1-',
+        AttributeOrder: '1-',
+        Quotation: '1-',
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return BarChart.changeCategoryOrder(
           layout,
-          matchTags['Quotation+']
-            .data()[0]
-            .text.split(',')
-            .map(label => label.trim().slice(1, -1)),
+          matchTags.Quotation,
         );
       },
     },
   ],
   histogram: [
     {
-      match: [['ComponentBin', 'AttributeSize', 'Value']],
+      match: {
+        ComponentBin: '1-',
+        AttributeSize: '1-',
+        Value: 1,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return Histogram.setXbins(
           layout,
@@ -109,39 +144,37 @@ module.exports = {
       },
     },
     {
-      match: [['ComponentBin', 'Value']],
+      match: {
+        ComponentBin: '1-',
+        Value: 1,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return Histogram.setXbins(layout, null, null, null, matchTags.Value.values().numbers()[0]);
-      },
-    },
-    {
-      match: [['ComponentAxis', 'AttributeRange', 'NumericValue+']],
-      actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
-        return Histogram.setXbins(
-          layout,
-          matchTags.NumericValue.values().numbers()[0],
-          matchTags.NumericValue.values().numbers()[1],
-          null,
-          null,
-        );
       },
     },
   ],
   pie: [
     {
-      match: [['ValuePercent']],
+      match: {
+        ValuePercent: '1-',
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return PieChart.showPercentageValues();
       },
     },
     {
-      match: [['ValueValue']],
+      match: {
+        ValueValue: '1-',
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return PieChart.showAbsoluteValues();
       },
     },
     {
-      match: [['Label+', 'ValueColor+']],
+      match: {
+        'Label+': 1,
+        'ValueColor+': 1,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return PieChart.updateColors(
           data,
@@ -156,7 +189,13 @@ module.exports = {
   ],
   scatter: [
     {
-      match: [['ActionIncrease', 'ComponentMarker', 'AttributeSize', 'Percent']],
+      match: {
+        ActionIncrease: '1-',
+        ActionDecrease: 0,
+        ComponentMarker: '1-',
+        AttributeSize: '1-',
+        Percent: 1,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return ScatterPlot.changeMarkerSizeBy(
           data,
@@ -166,7 +205,13 @@ module.exports = {
       },
     },
     {
-      match: [['ActionDecrease', 'ComponentMarker', 'AttributeSize', 'Percent']],
+      match: {
+        ActionDecrease: '1-',
+        ActionIncrease: 0,
+        ComponentMarker: '1-',
+        AttributeSize: '1-',
+        Percent: 1,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return ScatterPlot.changeMarkerSizeBy(
           data,
@@ -176,13 +221,21 @@ module.exports = {
       },
     },
     {
-      match: [['ComponentMarker', 'AttributeSize', 'Value']],
+      match: {
+        ComponentMarker: '1-',
+        AttributeSize: '1-',
+        Value: 1,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return ScatterPlot.changeMarkerSize(matchTags.Value.values().numbers()[0], traces);
       },
     },
     {
-      match: [['ComponentMarker', 'AttributeOpacity', 'Percent']],
+      match: {
+        ComponentMarker: '1-',
+        AttributeOpacity: '1-',
+        Percent: 1,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return ScatterPlot.changeMarkerOpacity(
           matchTags.Percent.values().numbers()[0] / 100,
@@ -191,43 +244,65 @@ module.exports = {
       },
     },
     {
-      match: [['ComponentMarker', 'ValueColor']],
+      match: {
+        ComponentMarker: '1-',
+        ValueColor: 1,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return ScatterPlot.changeMarkerColor(matchTags.ValueColor.out('normal'), traces);
       },
     },
     {
-      match: [['ComponentLine', 'ValueColor']],
+      match: {
+        ComponentLine: '1-',
+        ValueColor: 1,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return ScatterPlot.changeLineColor(matchTags.ValueColor.out('normal'), traces);
       },
     },
     {
-      match: [['ComponentLine', 'AttributeSize', 'Value']],
+      match: {
+        ComponentLine: '1-',
+        AttributeSize: '1-',
+        Value: 1,
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return ScatterPlot.changeLineWidth(matchTags.Value.values().numbers()[0], traces);
       },
     },
     {
-      match: [['ActionHide', 'ComponentLine']],
+      match: {
+        ActionHide: '1-',
+        ActionShow: 0,
+        ComponentLine: '1-',
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return ScatterPlot.changeScatterMode('markers', traces);
       },
     },
     {
-      match: [['ActionShow', 'ComponentLine']],
+      match: {
+        ActionShow: '1-',
+        ActionHide: 0,
+        ComponentLine: '1-',
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return ScatterPlot.changeScatterMode('lines+markers', traces);
       },
     },
     {
-      match: [['ValueSymbol']],
+      match: {
+        ValueSymbol: '1-',
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return ScatterPlot.changeMarkerSymbol(matchTags.ValueSymbol.out('normal'), traces);
       },
     },
     {
-      match: [['ValueDash']],
+      match: {
+        ValueDash: '1-',
+      },
       actions(data, layout, matchRule, matchTags, nlpSentence, traces) {
         return ScatterPlot.changeLineDash(matchTags.ValueDash.out('normal'), traces);
       },

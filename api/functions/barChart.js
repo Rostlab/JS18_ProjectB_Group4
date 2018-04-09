@@ -11,7 +11,7 @@ function changeCategoryOrder(layout, categoryArray, axis = 'xaxis') {
   const axistype = layout[axis];
   const update = {};
 
-  if (axistype && axistype.type !== 'category') {
+  if (!axistype || axistype.type !== 'category') {
     throw new Error('the axis is not type of category');
   }
 
