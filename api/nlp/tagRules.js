@@ -114,7 +114,6 @@ module.exports = {
   bar: [
     {
       match: {
-        ComponentBar: '1-',
         AttributeOrder: '1-',
         Quotation: '1-',
       },
