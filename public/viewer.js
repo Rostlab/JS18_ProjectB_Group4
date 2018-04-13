@@ -48,8 +48,8 @@ function graphViewerController($scope, $http) {
       .then(() => {
         console.log('Success');
       })
-      .catch(() => {
-        alert('Sorry, I do not understand.');
+      .catch((e) => {
+        alert(e.data.message);
       });
   };
 
